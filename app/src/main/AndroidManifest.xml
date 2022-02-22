@@ -11,10 +11,10 @@
         android:theme="@style/Theme.ScooterSharing">
         <activity
             android:name=".EditRideActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".StartRideActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ScooterSharingActivity"
             android:exported="true">

@@ -1,48 +1,49 @@
 package dk.itu.moapd.scootersharing
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 //import dk.itu.moapd.scootersharing.databinding.ActivityMainBinding
 //import dk.itu.moapd.scootersharing.databinding.ResultLayoutBinding
 //import dk.itu.moapd.scootersharing.databinding.ButtonsLayoutBinding
+private const val TAG = "ScooterSharingActivity"
 
 class ScooterSharingActivity : AppCompatActivity() {
 
     //GUI variables
-    private lateinit var lastAddedText : EditText
-    private lateinit var addButton : Button
-    private lateinit var nameText : TextView
-    private lateinit var whereText : TextView
-    private val scooter : Scooter = Scooter ("", "", 0)
+    private lateinit var startButton : Button
+    private lateinit var editButton : Button
+
+    companion object {
+        lateinit var ridesDB : RidesDB
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate(Bundle?) called")
+        //Singleton to share an object between activites
+        ridesDB = RidesDB.get(this)
+
         setContentView(R.layout.activity_scooter_sharing)
 
-        //Edit texts
-        lastAddedText = findViewById(R.id.last_added_text)
-        whereText = findViewById(R.id.where_text)
-        nameText = findViewById(R.id.name_text)
-        //Buttons
-        addButton = findViewById(R.id.add_button)
-        addButton.setOnClickListener{
-         if(nameText.text.isNotEmpty() && whereText.text.isNotEmpty()){
-             //Update the object attributes
-             val name = nameText.text.toString().trim()
-             val where = whereText.text.toString().trim()
-             scooter.name = name
-             scooter.where = where
-             //Reset
-             nameText.setText("")
-             whereText.setText("")
-             updateUi()
-            }
+        //Start button
+        startButton = findViewById(R.id.start_button)
+        startButton.setOnClickListener{
+            //Start the application
+            Log.d(TAG, "StartRide called")
+            val intent = Intent(this, StartRideActivity::class.java)
+            startActivity(intent)
+        }
+        //Edit button
+        editButton = findViewById(R.id.edit_button)
+        editButton.setOnClickListener{
+            //Edit ride
+            Log.d(TAG, "EditRide called")
+            val intent = Intent(this, EditRideActivity::class.java)
+            startActivity(intent)
         }
     }
-    private fun updateUi () {
-        lastAddedText.setText(scooter.toString () )
-    }
+
 }
