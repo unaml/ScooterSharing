@@ -27,16 +27,22 @@ class RidesDB private constructor (context : Context) {
         )
     }
     fun getScooters(): List<Scooter> {
-        // TODO: Implement your solution here.
+        print(rides)
+        return rides
     }
     fun addScooter(name: String, where: String) {
-        //TODO: Implement your solution here.
+        val last = Scooter(name, where, timestamp = System.currentTimeMillis())
+        rides.add(last)
+        lastScooter = last
+        print(last)
     }
-    fun updateScooter(name: String , where: String) {
-        // TODO: Implement your solution here.
+    fun updateScooter(name: String, where: String) {
+        lastScooter.name = name
+        lastScooter.where = where
+        lastScooter.timestamp = System.currentTimeMillis()
     }
     fun getLastScooterInfo(): String {
-        // TODO: Implement your solution here .
+        return "Name: ${lastScooter.name}, where: ${lastScooter.where}, time: ${lastScooter.timestamp}"
     }
     /**
      * Get the current timestamp and generate a random data in the

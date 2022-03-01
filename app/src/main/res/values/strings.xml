@@ -8,4 +8,8 @@
     <string name="info_text">Info</string>
     <string name="update_button">Update Ride</string>
     <string name="edit_button">Edit Ride</string>
+    <string name="list_button">List Rides</string>
+    <string name="title">Title</string>
+    <string name="where">Where</string>
+    <string name="when">DateTime</string>
 </resources>

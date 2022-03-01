@@ -2,13 +2,15 @@ package dk.itu.moapd.scootersharing
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+
 //import dk.itu.moapd.scootersharing.databinding.ActivityMainBinding
 //import dk.itu.moapd.scootersharing.databinding.ResultLayoutBinding
 //import dk.itu.moapd.scootersharing.databinding.ButtonsLayoutBinding
-
+private const val TAG = "StartRideActivity"
 class StartRideActivity : AppCompatActivity() {
 
     //GUI variables
@@ -24,6 +26,9 @@ class StartRideActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "OnCreate called")
+        //Singleton to share an object between activites
+        ScooterSharingActivity.ridesDB = RidesDB.get(this)
         setContentView(R.layout.activity_start_ride)
 
         //Edit texts

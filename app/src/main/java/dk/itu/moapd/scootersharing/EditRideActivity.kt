@@ -26,6 +26,8 @@ class EditRideActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "OnCreate called")
+        //Singleton to share an object between activites
+        ScooterSharingActivity.ridesDB = RidesDB.get(this)
         setContentView(R.layout.activity_edit_ride)
 
         //Edit texts

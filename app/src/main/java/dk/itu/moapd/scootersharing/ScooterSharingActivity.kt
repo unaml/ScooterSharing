@@ -5,45 +5,60 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-//import dk.itu.moapd.scootersharing.databinding.ActivityMainBinding
+import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
 //import dk.itu.moapd.scootersharing.databinding.ResultLayoutBinding
 //import dk.itu.moapd.scootersharing.databinding.ButtonsLayoutBinding
 private const val TAG = "ScooterSharingActivity"
 
 class ScooterSharingActivity : AppCompatActivity() {
 
-    //GUI variables
-    private lateinit var startButton : Button
-    private lateinit var editButton : Button
+    //View binding for ScooterSharingActivity
+    private lateinit var binding : ActivityScooterSharingBinding
 
+    //  A set of static attributes used in this activity class.
     companion object {
         lateinit var ridesDB : RidesDB
+        private lateinit var adapter : ScooterArrayAdapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
+
         //Singleton to share an object between activites
         ridesDB = RidesDB.get(this)
+        val rides = ridesDB.getScooters()
 
-        setContentView(R.layout.activity_scooter_sharing)
+        adapter = ScooterArrayAdapter(this, R.layout.list_rides, rides)
 
-        //Start button
-        startButton = findViewById(R.id.start_button)
-        startButton.setOnClickListener{
-            //Start the application
-            Log.d(TAG, "StartRide called")
-            val intent = Intent(this, StartRideActivity::class.java)
-            startActivity(intent)
+        binding = ActivityScooterSharingBinding.inflate(layoutInflater)
+
+        with(binding){
+            //Start button
+            startButton.setOnClickListener{
+                //Start the application
+                Log.d(TAG, "StartRide called")
+                val intent = Intent(baseContext, StartRideActivity::class.java) //Change baseContext to requireContext later
+                startActivity(intent)
+            }
+            //Edit button
+            editButton.setOnClickListener{
+                //Edit ride
+                Log.d(TAG, "EditRide called")
+                val intent = Intent(baseContext, EditRideActivity::class.java)
+                startActivity(intent)
+            }
+            //List button
+            listButton.setOnClickListener{
+                ridesListView.adapter = adapter
+            }
         }
-        //Edit button
-        editButton = findViewById(R.id.edit_button)
-        editButton.setOnClickListener{
-            //Edit ride
-            Log.d(TAG, "EditRide called")
-            val intent = Intent(this, EditRideActivity::class.java)
-            startActivity(intent)
-        }
+
+
+
+        val view = binding.root
+        setContentView(view)
+
     }
 
 }
