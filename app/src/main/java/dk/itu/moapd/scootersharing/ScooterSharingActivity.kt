@@ -38,8 +38,7 @@ class ScooterSharingActivity : AppCompatActivity() {
 
         binding = ActivityScooterSharingBinding.inflate(layoutInflater)
 
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
     }
 }
