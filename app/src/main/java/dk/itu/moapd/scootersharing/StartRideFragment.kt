@@ -1,59 +1,80 @@
 package dk.itu.moapd.scootersharing
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import dk.itu.moapd.scootersharing.databinding.FragmentEditRideBinding
+import dk.itu.moapd.scootersharing.databinding.FragmentStartRideBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
+private const val TAG = "StartRideActivity"
 /**
  * A simple [Fragment] subclass.
  * Use the [StartRideFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class StartRideFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentStartRideBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    //GUI variables
+    private lateinit var infoText: EditText
+    private lateinit var startButton: Button
+    private lateinit var nameText: TextView
+    private lateinit var whereText: TextView
+
+    private val scooter: Scooter = Scooter("", "", 0)
+
+    companion object {
+        lateinit var ridesDB: RidesDB
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //val view = inflater.inflate(R.layout.fragment_edit_ride, container, false)
+        //Edit texts
+        //infoText = view.findViewById(R.id.info_text) //TODO : change r.id
+        //whereText = view.findViewById(R.id.where_text)
+        //nameText = view.findViewById(R.id.name_text)
+        //startButton = view.findViewById(R.id.start_button)
+
+        //Binding between layout and fragment
+        binding = FragmentStartRideBinding.inflate(layoutInflater)
+
+        //Singleton to share an object between activites
+        ScooterSharingActivity.ridesDB = RidesDB.get(requireContext())
+        val rides = ScooterSharingActivity.ridesDB.getScooters()
+
+        with(binding) {
+
+            startButton.setOnClickListener {
+                if (nameText.text.isNotEmpty() && whereText.text.isNotEmpty()) {
+                    //Update the object attributes
+                    val name = nameText.text.toString().trim()
+                    val where = whereText.text.toString().trim()
+                    scooter.name = name
+                    scooter.where = where
+                    scooter.timestamp = System.currentTimeMillis()
+                    //Reset
+                    nameText.setText("")
+                    whereText.setText("")
+                    updateUi()
+                }
+
+            }
+
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_start_ride, container, false)
+        return (binding.root)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StartRideFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StartRideFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun updateUi () {
+        infoText.setText(scooter.toString () )
     }
 }

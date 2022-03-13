@@ -12,10 +12,6 @@ import android.widget.TextView
 import dk.itu.moapd.scootersharing.databinding.FragmentEditRideBinding
 import dk.itu.moapd.scootersharing.databinding.FragmentScooterSharingBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-
 /**
  * A simple [Fragment] subclass.
  * Use the [EditRideFragment.newInstance] factory method to
@@ -46,6 +42,9 @@ class EditRideFragment : Fragment() {
         updateButton = view.findViewById(R.id.update_button) as Button
         nameText = view.findViewById(R.id.name_text) as TextView
         whereText = view.findViewById(R.id.where_text) as TextView
+
+        //Binding between layout and fragment
+        binding = FragmentEditRideBinding.inflate(layoutInflater)
 
         //Singleton to share an object between activites
         ScooterSharingActivity.ridesDB = RidesDB.get(requireContext())

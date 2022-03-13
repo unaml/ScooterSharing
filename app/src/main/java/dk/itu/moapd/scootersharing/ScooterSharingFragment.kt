@@ -26,7 +26,7 @@ class ScooterSharingFragment : Fragment() {
 
         private lateinit var adapter : ScooterArrayAdapter
         private lateinit var titleField : EditText
-        private lateinit var startButton : Button
+        //private lateinit var startButton : Button
         private lateinit var editButton : Button
         private lateinit var listButton : Button
         private lateinit var scooterList : ListView
@@ -42,12 +42,13 @@ class ScooterSharingFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View? {
-            val view = inflater.inflate(R.layout.fragment_scooter_sharing, container, false)
-            titleField = view.findViewById(R.id.scooter_title) as EditText
-            startButton = view.findViewById(R.id.start_button) as Button
-            editButton = view.findViewById(R.id.edit_button) as Button
-            listButton = view.findViewById(R.id.list_button) as Button
-            scooterList = view.findViewById(R.id.rides_list_view) as ListView
+            //val view = inflater.inflate(R.layout.fragment_scooter_sharing, container, false)
+            //startButton = view.findViewById(R.id.start_button) as Button
+            //editButton = view.findViewById(R.id.edit_button) as Button
+            //listButton = view.findViewById(R.id.list_button) as Button
+            //scooterList = view.findViewById(R.id.rides_list_view) as ListView
+            binding = FragmentScooterSharingBinding.inflate(layoutInflater)
+
 
 
             //Singleton to share an object between activites
@@ -61,6 +62,7 @@ class ScooterSharingFragment : Fragment() {
                 startButton.setOnClickListener{
                     //Start the application
                     Log.d(TAG, "StartRide called")
+                    print("hello")
                     val intent = Intent(requireContext(), StartRideActivity::class.java) //Change baseContext to requireContext later
                     startActivity(intent)
                 }
@@ -70,6 +72,7 @@ class ScooterSharingFragment : Fragment() {
                     Log.d(TAG, "EditRide called")
                     val intent = Intent(requireContext(), EditRideActivity::class.java)
                     startActivity(intent)
+
                 }
                 //List button
                 listButton.setOnClickListener{
@@ -77,7 +80,7 @@ class ScooterSharingFragment : Fragment() {
                 }
             }
 
-            return view
+            return (binding.root)
             }
         }
 

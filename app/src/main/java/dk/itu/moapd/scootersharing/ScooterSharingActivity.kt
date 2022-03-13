@@ -25,17 +25,18 @@ class ScooterSharingActivity : AppCompatActivity() {
 
         // Get the latest fragment added in the fragment manager.
         val currentFragment =
-            supportFragmentManager.findFragmentById(androidx.fragment.R.id.fragment_container_view_tag)
+            supportFragmentManager.findFragmentById(R.id.fragment_container_view_tag)
+
 
         // Add the fragment into the activity.
         if (currentFragment == null) {
             val fragment = ScooterSharingFragment()
             supportFragmentManager
                 .beginTransaction()
-                .add(androidx.fragment.R.id.fragment_container_view_tag, fragment)
+                .add(R.id.fragment_container_view_tag, fragment)
                 .commit()
         }
-
+        //Binding for layout and activity
         binding = ActivityScooterSharingBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
