@@ -5,54 +5,47 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.core.graphics.drawable.DrawableCompat.inflate
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
 import org.w3c.dom.Text
 
-/** A class to customize an adapter with a 'ViewHolder' to populate a dumme dataset into a 'ListView' */
-class ScooterArrayAdapter(context: Context, private var resource: Int, data: List<Scooter>) :
-    ArrayAdapter<Scooter>(context, R.layout.list_rides, data)  {
+/** A class to customize an adapter with a 'ViewHolder' to populate a dummy dataset into a 'RecyclerView' */
+class ScooterArrayAdapter(private val data: List<Scooter>) : RecyclerView.Adapter<ScooterArrayAdapter.ViewHolder>() {
 
-        //A set of private constants used in this class
-        companion object {
-            private val TAG = ScooterArrayAdapter::class.qualifiedName
-        }
+    //A set of private constants used in this class
+    companion object {
+        private val TAG = ScooterArrayAdapter::class.qualifiedName
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_rides, parent, false)
+        return ViewHolder(view)
+    }
 
     /**
-    * An internal view holder class used to represent the layout that shows a single `RidesDB`
-    * instance in the `ListView`.
-    */
-    private class ViewHolder(view: View) {
+     * An internal view holder class used to represent the layout that shows a single `RidesDB` instance
+     */
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title : TextView = view.findViewById(R.id.title)
         val where : TextView = view.findViewById(R.id.where)
+        val timeStamp : TextView = view.findViewById(R.id.date)
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var view = convertView
-        val viewHolder : ViewHolder
+    override fun getItemCount() = data.size
 
-        // The old view should be reused, if possible. You should check that this view is non-null
-        // and of an appropriate type before using.
-        if(view == null) {
-            val inflater = LayoutInflater.from(context)
-            view = inflater.inflate(resource, parent, false)
-            viewHolder = ViewHolder(view)
-        } else
-            viewHolder = view.tag as ViewHolder
-
-        //Get the selected data in the dataset
-        val scooter = getItem(position)
-        Log.i(TAG, "Populate an item at position: $position")
-
-        // Populate the view holder with the selected `DummyModel` data.
-        viewHolder.title.text = scooter?.name
-        viewHolder.where.text = scooter?.where
-
-        view?.tag = viewHolder
-        return view!!
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val dummy = data[position]
+        holder.apply {
+            title.text = dummy.name
+            where.text = dummy.where
+            timeStamp.text = dummy.timestamp.toString()
+        }
     }
+
 
 }

@@ -14,24 +14,25 @@
         android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:text="@string/start_button" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edit_button"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:text="@string/edit_button"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/list_button"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:text="@string/list_button"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rides_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

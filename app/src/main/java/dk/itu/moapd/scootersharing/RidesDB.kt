@@ -44,6 +44,10 @@ class RidesDB private constructor (context : Context) {
     fun getLastScooterInfo(): String {
         return "Name: ${lastScooter.name}, where: ${lastScooter.where}, time: ${lastScooter.timestamp}"
     }
+
+    fun deleteScooter(scooter: Scooter) {
+        rides.remove(scooter)
+    }
     /**
      * Get the current timestamp and generate a random data in the
     ,→ last 365 days .

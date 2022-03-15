@@ -4,11 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../.gradle/caches/transforms-3/4b524e4ae54fe8329b7692ef768decf8/transformed/appcompat-1.4.1/res/layout/abc_activity_chooser_view_list_item.xml" value="0.2526041666666667" />
+        <entry key="app/src/main/res/layout-land/activity_scooter_sharing.xml" value="0.2138447971781305" />
+        <entry key="app/src/main/res/layout-land/fragment_edit_ride.xml" value="0.2138447971781305" />
+        <entry key="app/src/main/res/layout-land/fragment_rides_list.xml" value="0.2138447971781305" />
+        <entry key="app/src/main/res/layout-land/fragment_scooter_sharing.xml" value="0.2138447971781305" />
+        <entry key="app/src/main/res/layout-land/fragment_start_ride.xml" value="0.2138447971781305" />
+        <entry key="app/src/main/res/layout-land/list_rides.xml" value="0.2138447971781305" />
         <entry key="app/src/main/res/layout/activity_edit_ride.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_scooter_sharing.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_start_ride.xml" value="0.1171875" />
         <entry key="app/src/main/res/layout/fragment_edit_ride.xml" value="0.2526041666666667" />
+        <entry key="app/src/main/res/layout/fragment_rides_list.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/fragment_scooter_sharing.xml" value="0.23854166666666668" />
         <entry key="app/src/main/res/layout/fragment_start_ride.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/list_rides.xml" value="0.2526041666666667" />

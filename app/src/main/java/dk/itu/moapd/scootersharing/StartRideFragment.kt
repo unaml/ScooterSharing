@@ -37,12 +37,6 @@ class StartRideFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //val view = inflater.inflate(R.layout.fragment_edit_ride, container, false)
-        //Edit texts
-        //infoText = view.findViewById(R.id.info_text) //TODO : change r.id
-        //whereText = view.findViewById(R.id.where_text)
-        //nameText = view.findViewById(R.id.name_text)
-        //startButton = view.findViewById(R.id.start_button)
 
         //Binding between layout and fragment
         binding = FragmentStartRideBinding.inflate(layoutInflater)
