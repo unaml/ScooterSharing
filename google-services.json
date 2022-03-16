@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "994768112681",
+    "project_id": "scootersharing-authentication",
+    "storage_bucket": "scootersharing-authentication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994768112681:android:9bcbc3770e734a5ca7a038",
+        "android_client_info": {
+          "package_name": "dk.itu.moapd.scootersharing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "994768112681-tgmo7sootakp88oet21qu9nemf1naneh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9T6UsmHRyymLP3dtrKlqhXz9zwNhqBpo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "994768112681-tgmo7sootakp88oet21qu9nemf1naneh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
