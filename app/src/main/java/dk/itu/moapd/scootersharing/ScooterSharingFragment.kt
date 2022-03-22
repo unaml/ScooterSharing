@@ -43,7 +43,7 @@ class ScooterSharingFragment : Fragment(){
             val rides = ridesDB.getScooters()
             val fm = parentFragmentManager
 
-            ScooterSharingFragment.adapter = ScooterArrayAdapter(ridesDB.getScooters())
+            //ScooterSharingFragment.adapter = ScooterArrayAdapter(ridesDB.getScooters()) TODO: uncomment
             //(requireContext(), R.layout.list_rides, rides)
 
             with(binding){

@@ -11,10 +11,14 @@ import android.widget.TextView
 import androidx.core.graphics.drawable.DrawableCompat.inflate
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import org.w3c.dom.Text
 
 /** A class to customize an adapter with a 'ViewHolder' to populate a dummy dataset into a 'RecyclerView' */
-class ScooterArrayAdapter(private val data: List<Scooter>) : RecyclerView.Adapter<ScooterArrayAdapter.ViewHolder>() {
+class ScooterArrayAdapter(private val data: List<Scooter>, options: FirebaseRecyclerOptions<Scooter>) : FirebaseRecyclerAdapter<Scooter, ScooterArrayAdapter.ViewHolder>(options) {
+
+
 
     //A set of private constants used in this class
     companion object {
@@ -45,6 +49,10 @@ class ScooterArrayAdapter(private val data: List<Scooter>) : RecyclerView.Adapte
             where.text = dummy.where
             timeStamp.text = dummy.timestamp.toString()
         }
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Scooter) {
+        TODO("Not yet implemented")
     }
 
 
