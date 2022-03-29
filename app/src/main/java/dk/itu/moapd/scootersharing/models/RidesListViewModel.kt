@@ -1,4 +1,4 @@
-package dk.itu.moapd.scootersharing
+package dk.itu.moapd.scootersharing.models
 
 class RidesListViewModel {
     val rides = mutableListOf<Scooter>()

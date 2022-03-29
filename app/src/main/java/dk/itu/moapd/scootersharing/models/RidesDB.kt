@@ -1,5 +1,6 @@
 package dk.itu.moapd.scootersharing
 import android.content.Context
+import dk.itu.moapd.scootersharing.models.Scooter
 import java.util.Random
 import kotlin.collections.ArrayList
 

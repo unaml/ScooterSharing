@@ -1,4 +1,4 @@
-package dk.itu.moapd.scootersharing
+package dk.itu.moapd.scootersharing.activities
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -6,7 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
+import dk.itu.moapd.scootersharing.R
+import dk.itu.moapd.scootersharing.RidesDB
 import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
+import dk.itu.moapd.scootersharing.fragments.ScooterSharingFragment
+
 //import dk.itu.moapd.scootersharing.databinding.ResultLayoutBinding
 //import dk.itu.moapd.scootersharing.databinding.ButtonsLayoutBinding
 private const val TAG = "ScooterSharingActivity"
@@ -31,6 +35,7 @@ class ScooterSharingActivity : AppCompatActivity() {
         //Binding for layout and activity
         binding = ActivityScooterSharingBinding.inflate(layoutInflater)
         // Get the shared preferences instance.
+        //TODO: add shared preferences
 
         //Initialize FireBase Auth.
         auth = FirebaseAuth.getInstance()
@@ -69,7 +74,10 @@ class ScooterSharingActivity : AppCompatActivity() {
         if(auth.currentUser == null)
             startLoginActivity()
         val user = auth.currentUser
-        //BINDING DESCRIPTION?
+        binding.description.text = getString(
+            R.string.firebase_user_description,
+            user?.email ?: user?.phoneNumber
+        )
     }
 
     private fun startLoginActivity() {

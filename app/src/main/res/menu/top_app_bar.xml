@@ -4,6 +4,10 @@
     <item
         android:id="@+id/more"
         android:title="@string/sign_out"
-        android:contentDescription="@string/content_description_sign_out"
+        android:contentDescription="Image"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        app:showAsAction="never"/>
 </menu>

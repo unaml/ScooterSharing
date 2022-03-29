@@ -1,4 +1,4 @@
-package dk.itu.moapd.scootersharing
+package dk.itu.moapd.scootersharing.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import android.widget.Toast
+import dk.itu.moapd.scootersharing.R
 
 
 class LoginActivity : AppCompatActivity() {
@@ -24,9 +25,9 @@ class LoginActivity : AppCompatActivity() {
     private fun createSignInIntent() {
         // Choose authentication providers.
         val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.PhoneBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build())
+            AuthUI.IdpConfig.EmailBuilder().build())
+            //AuthUI.IdpConfig.PhoneBuilder().build(),
+            //AuthUI.IdpConfig.GoogleBuilder().build())
         // Create and launch sign-in intent.
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
@@ -43,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
             startMainActivity()
         } else
             toast("Authentication failed.")
+
     }
     private fun startMainActivity() {
         val intent = Intent(this,

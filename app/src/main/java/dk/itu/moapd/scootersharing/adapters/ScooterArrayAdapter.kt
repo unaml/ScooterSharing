@@ -1,19 +1,14 @@
-package dk.itu.moapd.scootersharing
+package dk.itu.moapd.scootersharing.adapters
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.core.graphics.drawable.DrawableCompat.inflate
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import org.w3c.dom.Text
+import dk.itu.moapd.scootersharing.R
+import dk.itu.moapd.scootersharing.models.Scooter
 
 /** A class to customize an adapter with a 'ViewHolder' to populate a dummy dataset into a 'RecyclerView' */
 class ScooterArrayAdapter(private val data: List<Scooter>, options: FirebaseRecyclerOptions<Scooter>) : FirebaseRecyclerAdapter<Scooter, ScooterArrayAdapter.ViewHolder>(options) {
