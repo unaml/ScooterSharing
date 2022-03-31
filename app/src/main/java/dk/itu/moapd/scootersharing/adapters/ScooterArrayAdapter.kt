@@ -21,6 +21,7 @@ class ScooterArrayAdapter(private val data: List<Scooter>, options: FirebaseRecy
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_rides, parent, false)
         return ViewHolder(view)
@@ -40,8 +41,8 @@ class ScooterArrayAdapter(private val data: List<Scooter>, options: FirebaseRecy
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dummy = data[position]
         holder.apply {
-            title.text = dummy.name
-            where.text = dummy.where
+            title.text = dummy?.name
+            where.text = dummy?.where
             timeStamp.text = dummy.timestamp.toString()
         }
     }

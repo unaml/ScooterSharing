@@ -22,12 +22,17 @@ import dk.itu.moapd.scootersharing.databinding.FragmentEditRideBinding
 private const val TAG = "EditRideFragment"
 class EditRideFragment : Fragment() {
 
-    private lateinit var binding : FragmentEditRideBinding
+    private var _binding : FragmentEditRideBinding? = null
     //GUI variables
     private lateinit var infoText : EditText
     private lateinit var updateButton : Button
     private lateinit var nameText : TextView
     private lateinit var whereText : TextView
+
+    /**
+     * This property is only valid between `onCreateView()` and `onDestroyView()` methods.
+     */
+    private val binding get() = _binding!!
 
     private val scooter : Scooter = Scooter ("", "", 0)
     companion object {
@@ -40,13 +45,20 @@ class EditRideFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_edit_ride, container, false)
-        infoText = view.findViewById(R.id.info_text) as EditText
-        updateButton = view.findViewById(R.id.update_button) as Button
-        nameText = view.findViewById(R.id.name_text) as TextView
-        whereText = view.findViewById(R.id.where_text) as TextView
 
         //Binding between layout and fragment
-        binding = FragmentEditRideBinding.inflate(layoutInflater)
+        _binding = FragmentEditRideBinding.inflate(layoutInflater)
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //Singleton to share an object between activites
         ScooterSharingActivity.ridesDB = RidesDB.get(requireContext())
@@ -69,7 +81,6 @@ class EditRideFragment : Fragment() {
                 }
             }
         }
-        return view
     }
 
     private fun updateUi () {

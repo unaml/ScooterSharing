@@ -20,21 +20,14 @@ private const val TAG = "RidesListFragment"
  * create an instance of this fragment.
  */
 class RidesListFragment : Fragment() {
-    private lateinit var binding : FragmentRidesListBinding
+    private var _binding : FragmentRidesListBinding? = null
     private lateinit var ridesRecyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(TAG, "Total rides:")
-    }
+    /**
+     * This property is only valid between `onCreateView()` and `onDestroyView()` methods.
+     */
+    private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rides_list, container, false)
-    }
 
     companion object {
         /**
@@ -54,5 +47,26 @@ class RidesListFragment : Fragment() {
                     //putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "Total rides:")
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_rides_list, container, false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }

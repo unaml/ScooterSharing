@@ -21,8 +21,7 @@ class ScooterSharingActivity : AppCompatActivity() {
     private lateinit var binding : ActivityScooterSharingBinding
     //Shared preferences for saving the current state
     private lateinit var preferences : SharedPreferences
-    //Setting up authentication
-    private lateinit var auth : FirebaseAuth
+
 
     //  A set of static attributes used in this activity class.
     companion object {
@@ -31,14 +30,14 @@ class ScooterSharingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scooter_sharing)
+
+        //setContentView(R.layout.activity_scooter_sharing) i think i can delete this
+
         //Binding for layout and activity
         binding = ActivityScooterSharingBinding.inflate(layoutInflater)
         // Get the shared preferences instance.
         //TODO: add shared preferences
 
-        //Initialize FireBase Auth.
-        auth = FirebaseAuth.getInstance()
 
         // Get the latest fragment added in the fragment manager.
         val currentFragment =
@@ -53,36 +52,9 @@ class ScooterSharingActivity : AppCompatActivity() {
                 .commit()
         }
 
-        // Firebase Sign Out.
-        binding.topAppBar?.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.more -> {
-                    auth.signOut()
-                    startLoginActivity()
-                    true
-                }
-                else -> false
-            }
-        }
-
         setContentView(binding.root)
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        if(auth.currentUser == null)
-            startLoginActivity()
-        val user = auth.currentUser
-        binding.description.text = getString(
-            R.string.firebase_user_description,
-            user?.email ?: user?.phoneNumber
-        )
-    }
 
-    private fun startLoginActivity() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
 }

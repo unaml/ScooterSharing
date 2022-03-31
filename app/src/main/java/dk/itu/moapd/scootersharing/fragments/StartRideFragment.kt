@@ -22,13 +22,19 @@ private const val TAG = "StartRideActivity"
  * create an instance of this fragment.
  */
 class StartRideFragment : Fragment() {
-    private lateinit var binding: FragmentStartRideBinding
+
+    private var _binding: FragmentStartRideBinding? = null
 
     //GUI variables
     private lateinit var infoText: EditText
     private lateinit var startButton: Button
     private lateinit var nameText: TextView
     private lateinit var whereText: TextView
+
+    /**
+     * This property is only valid between `onCreateView()` and `onDestroyView()` methods.
+     */
+    private val binding get() = _binding!!
 
     private val scooter: Scooter = Scooter("", "", 0)
 
@@ -42,7 +48,19 @@ class StartRideFragment : Fragment() {
     ): View? {
 
         //Binding between layout and fragment
-        binding = FragmentStartRideBinding.inflate(layoutInflater)
+        _binding = FragmentStartRideBinding.inflate(layoutInflater)
+
+        // Inflate the layout for this fragment
+        return (binding.root)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //Singleton to share an object between activites
         ScooterSharingActivity.ridesDB = RidesDB.get(requireContext())
@@ -67,8 +85,6 @@ class StartRideFragment : Fragment() {
             }
 
         }
-        // Inflate the layout for this fragment
-        return (binding.root)
     }
 
     private fun updateUi () {
