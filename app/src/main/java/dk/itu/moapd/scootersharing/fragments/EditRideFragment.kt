@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import dk.itu.moapd.scootersharing.R
-import dk.itu.moapd.scootersharing.RidesDB
+import dk.itu.moapd.scootersharing.models.RidesDB
 import dk.itu.moapd.scootersharing.models.Scooter
 import dk.itu.moapd.scootersharing.activities.ScooterSharingActivity
 import dk.itu.moapd.scootersharing.databinding.FragmentEditRideBinding
