@@ -1,13 +1,10 @@
 package dk.itu.moapd.scootersharing.activities
 
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import dk.itu.moapd.scootersharing.R
-import dk.itu.moapd.scootersharing.RidesDB
+import dk.itu.moapd.scootersharing.models.RidesDB
 import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
 import dk.itu.moapd.scootersharing.fragments.ScooterSharingFragment
 

@@ -1,30 +1,29 @@
-package dk.itu.moapd.scootersharing
+package dk.itu.moapd.scootersharing.models
 import android.content.Context
-import dk.itu.moapd.scootersharing.models.Scooter
 import java.util.Random
 import kotlin.collections.ArrayList
 
 class RidesDB private constructor (context : Context) {
 
     private val rides = ArrayList <Scooter>()
-    private var lastScooter = Scooter ("", "", 0)
+    private var lastScooter = Scooter (0,"", "", 0)
 
-    companion object : RidesDBHolder <RidesDB, Context>(::RidesDB)
+    companion object : RidesDBHolder<RidesDB, Context>(::RidesDB)
     init {
         rides.add(
-            Scooter("Chuck Norris", "ITU", randomDate())
+            Scooter(1, "Chuck Norris", "ITU", randomDate())
         )
         rides.add(
-            Scooter("Bruce Lee", "Fields", randomDate())
+            Scooter(2, "Bruce Lee", "Fields", randomDate())
         )
         rides.add (
-            Scooter ("Rambo", "Københavns Lufthavn", randomDate())
+            Scooter (3, "Rambo", "Københavns Lufthavn", randomDate())
         )
         rides.add (
-            Scooter ("Fabricio", "Nørrebrogade", randomDate())
+            Scooter (4, "Fabricio", "Nørrebrogade", randomDate())
         )
         rides.add (
-            Scooter ("Maggy Juicy", "Øresundskollegiet", randomDate())
+            Scooter (5, "Maggy Juicy", "Øresundskollegiet", randomDate())
         )
     }
     fun getScooters(): List<Scooter> {
@@ -32,7 +31,7 @@ class RidesDB private constructor (context : Context) {
         return rides
     }
     fun addScooter(name: String, where: String) {
-        val last = Scooter(name, where, timestamp = System.currentTimeMillis())
+        val last = Scooter(0,name, where, timestamp = System.currentTimeMillis())
         rides.add(last)
         lastScooter = last
         print(last)
