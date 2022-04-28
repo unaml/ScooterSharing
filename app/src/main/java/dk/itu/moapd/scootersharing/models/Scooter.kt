@@ -6,27 +6,29 @@ import java.util.*
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
 
-@Entity(tableName = "scooter")
-class Scooter(
-    @PrimaryKey(autoGenerate = true)
-    val uid : Int,
-    @ColumnInfo(name = "name")
-    var name : String?,
-    @ColumnInfo(name = "where")
-    var where : String?,
-    @ColumnInfo(name = "timestamp")
-    var timestamp : Long
-) {
+    @IgnoreExtraProperties
+    open class Scooter(
+        var name: String? = null,
+        val createdAt: Long? = null,
+        var updatedAt: Long? = null,
+    ) {
 
-    fun getData() : String {
-        val date = Date(timestamp)
-        val format = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        return format.format(date)
+        /**
+         * Convert a instance of `Scooter' class into a `Map` to update the database on the RealTime
+         * Firebase.
+         *
+         * @return A map with the table column name as the `key` and the class attribute as the `value`.
+         */
+        @Exclude
+        fun toMap(): Map<String, Any?> {
+            return mapOf(
+                "name" to name,
+                "createdAt" to createdAt,
+                "updatedAt" to updatedAt
+            )
+        }
+
     }
-
-    override fun toString() : String {
-        return "$name is placed at $where"
-    }
-
-}

@@ -21,4 +21,13 @@
     <string name="firebase_user_description">You are already logged in as %s, you need to log out before logging in as different user.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="phone">Phone Number</string>
+    <string name="cardNumber">Card Number</string>
+    <string name="expDate">Expiration Date</string>
+    <string name="cvc">CVC</string>
+    <string name="payment">COMPLETE PAYMENT</string>
+    <string name="mobilepay">CONTINUE WITH MOBILEPAY</string>
+    <string name="dateofbirth">Date of Birth</string>
 </resources>

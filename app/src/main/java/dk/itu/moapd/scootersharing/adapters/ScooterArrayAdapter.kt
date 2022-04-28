@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import dk.itu.moapd.scootersharing.R
 import dk.itu.moapd.scootersharing.interfaces.ItemClickListener
 import dk.itu.moapd.scootersharing.models.Scooter
 
 /** A class to customize an adapter with a 'ViewHolder' to populate a dummy dataset into a 'RecyclerView' */
-class ScooterArrayAdapter(private val itemClickListener: ItemClickListener, val data: ArrayList<Scooter>) :
-    RecyclerView.Adapter<ScooterArrayAdapter.ViewHolder>() {
+class ScooterArrayAdapter(private val itemClickListener: ItemClickListener, options: FirebaseRecyclerOptions<Scooter>) :
+    FirebaseRecyclerAdapter<Scooter, ScooterArrayAdapter.ViewHolder>(options){
 
     //A set of private constants used in this class
     companion object {
@@ -35,45 +37,15 @@ class ScooterArrayAdapter(private val itemClickListener: ItemClickListener, val 
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val dummy = data[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, scooter: Scooter) {
         Log.i(TAG, "Populate an item at position: $position")
 
         holder.apply {
-            title.text = dummy?.name
-            where.text = dummy?.where
-            timeStamp.text = dummy.timestamp.toString()
-
-            // Listen for long clicks in the current item.
-            itemView.setOnLongClickListener {
-                itemClickListener.onItemClickListener(dummy, position)
+            title.text = scooter?.name
+            itemView.setOnLongClickListener{
+                itemClickListener.onItemClickListener(scooter, position)
                 true
+                }
             }
         }
     }
-
-    override fun getItemCount() = data.size
-
-    /**
-     * This method adds a new item to the dataset and updates the RecyclerView via a notification
-     * observer.
-     *
-     * @param dummy The new item to be added to the dataset.
-     */
-    fun addItem(scooter: Scooter) {
-        data.add(scooter)
-        notifyItemInserted(data.size)
-    }
-
-    /**
-     * This method removes an item from the dataset and updates the RecyclerView via a notification
-     * observer.
-     *
-     * @param position The position of the item to be removed from the dataset.
-     */
-    fun removeAt(position: Int) {
-        data.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-}

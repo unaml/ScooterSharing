@@ -35,12 +35,13 @@ class ScooterSharingFragment : Fragment(){
         private lateinit var ridesRecyclerView: RecyclerView
         //Setting up authentication
         private lateinit var auth : FirebaseAuth
+        //Setting up the database
         private lateinit var database : DatabaseReference
 
-        /**
-         * This property is only valid between `onCreateView()` and `onDestroyView()` methods.
-        */
-        private val binding get() = _binding!!
+    /**
+     * This property is only valid between `onCreateView()` and `onDestroyView()` methods.
+     */
+    private val binding get() = _binding!!
 
         //  A set of static attributes used in this activity class.
         companion object {
@@ -69,6 +70,8 @@ class ScooterSharingFragment : Fragment(){
             auth = FirebaseAuth.getInstance()
             //Connect to realtime database
             database = Firebase.database(DATABASE_URL).reference
+
+
             //Singleton to share an object between activites
             ridesDB = RidesDB.get(requireContext())
             val rides = ridesDB.getScooters()
@@ -99,7 +102,7 @@ class ScooterSharingFragment : Fragment(){
                 }
                 //List button
                 listButton.setOnClickListener{
-                    ridesRecyclerView.adapter = ScooterSharingFragment.adapter
+                    ridesRecyclerView.adapter = adapter
                 }
             }
 

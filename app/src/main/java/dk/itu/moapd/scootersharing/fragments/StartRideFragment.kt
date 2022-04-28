@@ -1,17 +1,25 @@
 package dk.itu.moapd.scootersharing.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import dk.itu.moapd.scootersharing.models.RidesDB
 import dk.itu.moapd.scootersharing.activities.ScooterSharingActivity
+import dk.itu.moapd.scootersharing.adapters.ScooterArrayAdapter
 import dk.itu.moapd.scootersharing.databinding.FragmentStartRideBinding
+import dk.itu.moapd.scootersharing.interfaces.ItemClickListener
 import dk.itu.moapd.scootersharing.models.Scooter
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import dk.itu.moapd.scootersharing.R
 
 private const val TAG = "StartRideActivity"
 /**
@@ -19,25 +27,47 @@ private const val TAG = "StartRideActivity"
  * Use the [StartRideFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class StartRideFragment : Fragment() {
+class StartRideFragment : Fragment(), ItemClickListener {
 
     private var _binding: FragmentStartRideBinding? = null
+    //Setting up authentication
+    private lateinit var auth : FirebaseAuth
+    //Setting up the database
+    private lateinit var database : DatabaseReference
 
-    //GUI variables
-    private lateinit var infoText: EditText
-    private lateinit var startButton: Button
-    private lateinit var nameText: TextView
-    private lateinit var whereText: TextView
 
     /**
      * This property is only valid between `onCreateView()` and `onDestroyView()` methods.
      */
     private val binding get() = _binding!!
 
-    private val scooter: Scooter = Scooter("", "", 0)
 
     companion object {
-        lateinit var ridesDB: RidesDB
+        private lateinit var adapter: ScooterArrayAdapter
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        //Initialize FireBase Auth.
+        auth = FirebaseAuth.getInstance()
+        //Connect to realtime database
+        database = Firebase.database(DATABASE_URL).reference
+        // Enable offline capabilities.
+        database.keepSynced(true)
+
+        //Create search query
+        val query = database.child("scooters")
+            .child(auth.currentUser?.uid ?: "None")
+            .orderByChild("createdAt")
+        // Execute a query in the database to fetch appropriate data.
+        val options = FirebaseRecyclerOptions.Builder<Scooter>()
+            .setQuery(query, Scooter::class.java)
+            .setLifecycleOwner(this)
+            .build()
+        //Create the custom adapter to bind a list of dummy objects
+        adapter = ScooterArrayAdapter(this, options)
+
     }
 
     override fun onCreateView(
@@ -64,28 +94,44 @@ class StartRideFragment : Fragment() {
         ScooterSharingActivity.ridesDB = RidesDB.get(requireContext())
         val rides = ScooterSharingActivity.ridesDB.getScooters()
 
-        with(binding) {
+        val fm = parentFragmentManager
 
+        with(binding) {
+            val name = nameText.text.toString().trim()
             startButton.setOnClickListener {
-                if (nameText.text.isNotEmpty() && whereText.text.isNotEmpty()) {
-                    //Update the object attributes
-                    val name = nameText.text.toString().trim()
-                    val where = whereText.text.toString().trim()
-                    scooter.name = name
-                    scooter.where = where
-                    scooter.timestamp = System.currentTimeMillis()
-                    //Reset
-                    nameText.setText("")
-                    whereText.setText("")
-                    updateUi()
+                if (nameText.text.isNotEmpty()) {
+                    val timestamp = System.currentTimeMillis()
+                    val scooter = Scooter(name, timestamp, timestamp)
+
+                    val uid = database.child("scooters")
+                        .child(auth.currentUser?.uid!!)
+                        .push()
+                        .key
+
+                    database.child("scooters")
+                        .child(auth.currentUser?.uid!!)
+                        .child(uid!!)
+                        .setValue(scooter)
                 }
 
+            }
+            goBack.setOnClickListener{
+
+                fm
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_view_tag, ScooterSharingFragment())
+                    .commit()
+                Log.d(TAG, "Main Screen called")
             }
 
         }
     }
 
     private fun updateUi () {
-        infoText.setText(scooter.toString () )
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemClickListener(scooter: Scooter, position: Int) {
+        TODO("Not yet implemented")
     }
 }
