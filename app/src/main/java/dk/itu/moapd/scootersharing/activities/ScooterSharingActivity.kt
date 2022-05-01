@@ -1,17 +1,27 @@
 package dk.itu.moapd.scootersharing.activities
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.location.*
 import dk.itu.moapd.scootersharing.R
 import dk.itu.moapd.scootersharing.models.RidesDB
 import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
 import dk.itu.moapd.scootersharing.fragments.LocationFragment
 import dk.itu.moapd.scootersharing.fragments.MapsFragment
-import dk.itu.moapd.scootersharing.fragments.ScooterSharingFragment
 import dk.itu.moapd.scootersharing.models.ScooterSharingVM
-
+import dk.itu.moapd.scootersharing.activities.LoginActivity
+import dk.itu.moapd.scootersharing.adapters.ScooterArrayAdapter
+import dk.itu.moapd.scootersharing.fragments.ScooterSharingFragment
+import java.util.concurrent.TimeUnit
 //import dk.itu.moapd.scootersharing.databinding.ResultLayoutBinding
 //import dk.itu.moapd.scootersharing.databinding.ButtonsLayoutBinding
 private const val TAG = "ScooterSharingActivity"
@@ -22,11 +32,17 @@ class ScooterSharingActivity : AppCompatActivity() {
     private lateinit var binding : ActivityScooterSharingBinding
     //Shared preferences for saving the current state
     private lateinit var preferences : SharedPreferences
+    //The primary instance for receiving location updates.
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    //This callback is called when `FusedLocationProviderClient` has a new `Location`.
+    private lateinit var locationCallback: LocationCallback
 
 
     //  A set of static attributes used in this activity class.
     companion object {
         lateinit var ridesDB : RidesDB
+        private lateinit var adapter : ScooterArrayAdapter
+        private const val ALL_PERMISSIONS_RESULT = 1011
     }
 
     /**
@@ -55,23 +71,160 @@ class ScooterSharingActivity : AppCompatActivity() {
 
         // Create the fragments instances.
         if (currentFragment == null) {
+            viewModel.addFragment(ScooterSharingFragment())
             viewModel.addFragment(LocationFragment())
             viewModel.addFragment(MapsFragment())
             viewModel.setFragment(0)
         }
 
         // Add the fragment into the activity.
+        for (fragment in viewModel.getFragmentList())
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container_view_tag, fragment)
+                .hide(fragment)
+                .commit()
+
+        /** Add the fragment into the activity.
         if (currentFragment == null) {
             val fragment = ScooterSharingFragment()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_container_view_tag, fragment)
                 .commit()
+        }*/
+
+        // The current activity.
+        var activeFragment: Fragment = viewModel.fragmentState.value!!
+
+        // Execute this when the user sets a specific fragment.
+        viewModel.fragmentState.observe(this) { fragment ->
+            supportFragmentManager
+                .beginTransaction()
+                .hide(activeFragment)
+                .show(fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit()
+            activeFragment = fragment
         }
+        // Start the location-aware method.
+        startLocationAware()
 
+        // Inflate the user interface into the current activity.
         setContentView(binding.root)
-
     }
 
+    override fun onResume() {
+        super.onResume()
+        subscribeToLocationUpdates()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unsubscribeToLocationUpdates()
+    }
+
+    /**
+     * Start the location-aware instance and defines the callback to be called when the GPS sensor
+     * provides a new user's location.
+     */
+    private fun startLocationAware() {
+
+        // Show a dialog to ask the user to allow the application to access the device's location.
+        requestUserPermissions()
+
+        // Start receiving location updates.
+        fusedLocationProviderClient = LocationServices
+            .getFusedLocationProviderClient(this)
+
+        // Initialize the `LocationCallback`.
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                super.onLocationResult(locationResult)
+                viewModel.onLocationChanged(locationResult.lastLocation)
+            }
+        }
+    }
+
+    /**
+     * Create a set of dialogs to show to the users and ask them for permissions to get the device's
+     * resources.
+     */
+    private fun requestUserPermissions() {
+        // An array with location-aware permissions.
+        val permissions: ArrayList<String> = ArrayList()
+        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
+        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION)
+
+        // Check which permissions is needed to ask to the user.
+        val permissionsToRequest = permissionsToRequest(permissions)
+
+        // Show the permissions dialogs to the user.
+        if (permissionsToRequest.size > 0)
+            requestPermissions(
+                permissionsToRequest.toTypedArray(),
+                ALL_PERMISSIONS_RESULT
+            )
+    }
+
+    /**
+     * Create an array with the permissions to show to the user.
+     *
+     * @param permissions An array with the permissions needed by this applications.
+     *
+     * @return An array with the permissions needed to ask to the user.
+     */
+    private fun permissionsToRequest(permissions: ArrayList<String>): ArrayList<String> {
+        val result: ArrayList<String> = ArrayList()
+        for (permission in permissions)
+            if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED)
+                result.add(permission)
+        return result
+    }
+
+    /**
+     * This method checks if the user allows the application uses all location-aware resources to
+     * monitor the user's location.
+     *
+     * @return A boolean value with the user permission agreement.
+     */
+    private fun checkPermission() =
+        ActivityCompat.checkSelfPermission(
+            this, Manifest.permission.ACCESS_FINE_LOCATION
+        ) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(
+                    this, Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+
+    /**
+     * Subscribes this application to get the location changes via the `locationCallback()`.
+     */
+    @SuppressLint("MissingPermission")
+    private fun subscribeToLocationUpdates() {
+        // Check if the user allows the application to access the location-aware resources.
+        if (checkPermission())
+            return
+
+        // Sets the accuracy and desired interval for active location updates.
+        val locationRequest = LocationRequest.create().apply {
+            interval = TimeUnit.SECONDS.toMillis(5)
+            fastestInterval = TimeUnit.SECONDS.toMillis(2)
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        // Subscribe to location changes.
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest, locationCallback, Looper.getMainLooper()
+        )
+    }
+
+    /**
+     * Unsubscribes this application of getting the location changes from  the `locationCallback()`.
+     */
+    private fun unsubscribeToLocationUpdates() {
+        // Unsubscribe to location changes.
+        fusedLocationProviderClient
+            .removeLocationUpdates(locationCallback)
+    }
 
 }

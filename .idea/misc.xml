@@ -6,6 +6,8 @@
         <entry key="../../../../../.gradle/caches/transforms-3/4b524e4ae54fe8329b7692ef768decf8/transformed/appcompat-1.4.1/res/layout/abc_activity_chooser_view_list_item.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_not_listed_location_128.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.226" />
+        <entry key="app/src/main/res/drawable/ic_mp_rgb_notm_logo_type_vertical_blue.xml" value="0.226" />
+        <entry key="app/src/main/res/drawable/ic_vector_mp.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/mp_rgb_notm_logo_type_horisontal_blue.xml" value="0.213" />
         <entry key="app/src/main/res/layout-land/activity_scooter_sharing.xml" value="0.2138447971781305" />
         <entry key="app/src/main/res/layout-land/fragment_edit_ride.xml" value="0.2138447971781305" />
@@ -20,6 +22,7 @@
         <entry key="app/src/main/res/layout/activity_start_ride.xml" value="0.1171875" />
         <entry key="app/src/main/res/layout/fragment_edit_ride.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/fragment_location.xml" value="0.2520833333333333" />
+        <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.2520833333333333" />
         <entry key="app/src/main/res/layout/fragment_payment.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/fragment_rides_list.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/fragment_scooter_sharing.xml" value="0.23854166666666668" />
