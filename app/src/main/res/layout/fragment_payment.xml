@@ -141,7 +141,7 @@
         android:layout_height="wrap_content"
         android:layout_row="6"
         android:layout_column="2"
-        android:drawableLeft="@drawable/mp_rgb_notm_logo_type_horisontal_blue" />
+        android:drawableLeft="@drawable/ic_mp" />
 
     <View
         android:id="@+id/view"
