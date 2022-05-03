@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit
 private const val TAG = "ScooterSharingFragment"
 //Firebase Realtime Database URL.
 const val DATABASE_URL =
-    "https://scootersharing-authentication-default-rtdb.europe-west1.firebasedatabase.app/"
+    "https://scootersharing-authentication-default-rtdb.europe-west1.firebasedatabase.app"
 /**
  * A simple [Fragment] subclass.
  * Use the [ScooterSharingFragment.newInstance] factory method to
@@ -106,8 +106,7 @@ class ScooterSharingFragment : Fragment(){
                     //Start the application
                     fm
                         .beginTransaction()
-                            //change this with StartRidefragment
-                        .replace(R.id.fragment_container_view_tag, MapsFragment())
+                        .replace(R.id.fragment_container_view_tag, StartRideFragment())
                         .commit()
                     Log.d(TAG, "StartRide called")
                 }

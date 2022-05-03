@@ -97,8 +97,8 @@ class StartRideFragment : Fragment(), ItemClickListener {
         val fm = parentFragmentManager
 
         with(binding) {
-            val name = nameText.text.toString().trim()
             startButton.setOnClickListener {
+                val name = nameText.text.toString().trim()
                 if (nameText.text.isNotEmpty()) {
                     val timestamp = System.currentTimeMillis()
                     val scooter = Scooter(name, timestamp, timestamp)
@@ -113,6 +113,13 @@ class StartRideFragment : Fragment(), ItemClickListener {
                         .child(uid!!)
                         .setValue(scooter)
                 }
+
+                //Open map
+                fm
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_view_tag, MapsFragment())
+                    .commit()
+                Log.d(TAG, "StartRide called")
 
             }
             goBack.setOnClickListener{

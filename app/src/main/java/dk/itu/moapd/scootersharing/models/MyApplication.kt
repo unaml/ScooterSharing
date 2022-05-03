@@ -7,7 +7,7 @@ import dk.itu.moapd.scootersharing.fragments.DATABASE_URL
 
 //Firebase Realtime Database URL.
 const val DATABASE_URL =
-    "https://scootersharing-authentication-default-rtdb.europe-west1.firebasedatabase.app/"
+    "https://scootersharing-authentication-default-rtdb.europe-west1.firebasedatabase.app"
 
 class MyApplication : Application() {
     override fun onCreate() {

@@ -39,7 +39,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback {
             .title("Marker in IT University of Copenhagen")
         )
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(itu, 18f))
-        googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 
         if (!checkPermission()) {
             googleMap.isMyLocationEnabled = true
