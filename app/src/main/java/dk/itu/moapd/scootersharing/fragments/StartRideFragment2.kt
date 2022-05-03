@@ -13,8 +13,18 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import dk.itu.moapd.scootersharing.R
+import dk.itu.moapd.scootersharing.databinding.FragmentStartRide2Binding
+import dk.itu.moapd.scootersharing.databinding.FragmentStartRideBinding
 
 class StartRideFragment2 : Fragment() {
+
+    private var _binding: FragmentStartRide2Binding? = null
+
+    /**
+     * This property is only valid between `onCreateView()` and `onDestroyView()` methods.
+     */
+    private val binding get() = _binding!!
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**

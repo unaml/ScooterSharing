@@ -22,7 +22,7 @@ import dk.itu.moapd.scootersharing.databinding.FragmentScooterSharingBinding
 private const val TAG = "ScooterSharingFragment"
 //Firebase Realtime Database URL.
 const val DATABASE_URL =
-    "https://scootersharing-authentication-default-rtdb.europe-west1.firebasedatabase.app/"
+    "https://scootersharing-authentication-default-rtdb.europe-west1.firebasedatabase.app"
 /**
  * A simple [Fragment] subclass.
  * Use the [ScooterSharingFragment.newInstance] factory method to
