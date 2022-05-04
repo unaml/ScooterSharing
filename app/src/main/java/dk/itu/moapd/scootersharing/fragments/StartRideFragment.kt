@@ -99,9 +99,11 @@ class StartRideFragment : Fragment(), ItemClickListener {
         with(binding) {
             startButton.setOnClickListener {
                 val name = nameText.text.toString().trim()
+                val latitude = latitude.text.toString().toDoubleOrNull()
+                val longitude = longitude.text.toString().toDoubleOrNull()
                 if (nameText.text.isNotEmpty()) {
                     val timestamp = System.currentTimeMillis()
-                    val scooter = Scooter(name, timestamp, timestamp)
+                    val scooter = Scooter(name, timestamp, timestamp, latitude, longitude)
 
                     val uid = database.child("scooters")
                         .child(auth.currentUser?.uid!!)

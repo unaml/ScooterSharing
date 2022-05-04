@@ -14,6 +14,9 @@ import com.google.firebase.database.IgnoreExtraProperties
         var name: String? = null,
         val createdAt: Long? = null,
         var updatedAt: Long? = null,
+        var latitude: Double? = null,
+        var longitude: Double? = null
+
     ) {
 
         /**
@@ -27,8 +30,34 @@ import com.google.firebase.database.IgnoreExtraProperties
             return mapOf(
                 "name" to name,
                 "createdAt" to createdAt,
-                "updatedAt" to updatedAt
+                "updatedAt" to updatedAt,
+                "latitude" to latitude,
+                "longitude" to longitude
             )
+        }
+
+        @Exclude
+        fun getLat(): Double {
+            return latitude!!
+        }
+
+        @Exclude
+        fun getLon(): Double {
+            return longitude!!
+        }
+
+        @Exclude
+        fun getScooterName(): String? {
+            return name
+        }
+
+        @Exclude
+        fun getCreated(): Long? {
+            return createdAt
+        }
+        @Exclude
+        fun getUpdated(): Long? {
+            return updatedAt
         }
 
     }

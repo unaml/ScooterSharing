@@ -16,6 +16,7 @@ import dk.itu.moapd.scootersharing.models.Scooter
 class ScooterArrayAdapter(private val itemClickListener: ItemClickListener, options: FirebaseRecyclerOptions<Scooter>) :
     FirebaseRecyclerAdapter<Scooter, ScooterArrayAdapter.ViewHolder>(options){
 
+
     //A set of private constants used in this class
     companion object {
         private val TAG = ScooterArrayAdapter::class.qualifiedName
@@ -25,9 +26,9 @@ class ScooterArrayAdapter(private val itemClickListener: ItemClickListener, opti
      * An internal view holder class used to represent the layout that shows a single `RidesDB` instance
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title : TextView = view.findViewById(R.id.title)
-        val where : TextView = view.findViewById(R.id.where)
-        val timeStamp : TextView = view.findViewById(R.id.date)
+        val name : TextView = view.findViewById(R.id.title)
+        val createdAt : TextView = view.findViewById(R.id.createdAt)
+        val updatedAt : TextView = view.findViewById(R.id.updatedAt)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,7 +42,10 @@ class ScooterArrayAdapter(private val itemClickListener: ItemClickListener, opti
         Log.i(TAG, "Populate an item at position: $position")
 
         holder.apply {
-            title.text = scooter?.name
+            name.text = scooter.getScooterName()
+            createdAt.text = scooter.getCreated().toString()
+            updatedAt.text = scooter.getUpdated().toString()
+
             itemView.setOnLongClickListener{
                 itemClickListener.onItemClickListener(scooter, position)
                 true

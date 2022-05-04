@@ -18,8 +18,15 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 
 import dk.itu.moapd.scootersharing.R
+import dk.itu.moapd.scootersharing.models.Scooter
 
 class MapsFragment : Fragment(), OnMapsSdkInitializedCallback {
 
@@ -34,10 +41,32 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback {
     private val callback = OnMapReadyCallback { googleMap ->
         // Add a marker in ITU and move the camera
         val itu = LatLng(55.6596, 12.5910)
-        googleMap.addMarker(MarkerOptions()
-            .position(itu)
-            .title("Marker in IT University of Copenhagen")
-        )
+        Firebase.database(DATABASE_URL).reference.child("scooters").addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for(postSnapshot in dataSnapshot.children) {
+                    var tempScooter = postSnapshot.getValue<Scooter>()
+                    var tempPosition = tempScooter?.let { LatLng(it.getLat(), tempScooter.getLon()) }
+                    tempPosition?.let {
+                        MarkerOptions()
+                            .position(it)
+                            .title("Hey")
+                    }?.let {
+                        googleMap.addMarker(
+                            it
+
+                        )
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                //If post failed, log message
+                Log.d(TAG, "Loadpost: onCancelled")
+            }
+
+        })
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(itu, 18f))
         googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 

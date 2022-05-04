@@ -37,4 +37,7 @@
     <string name="time_text">TIME</string>
     <string name="content_description_location">Location</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyA-jIAcJ2SHWO1G7DktvNyIDbCIl5jLJBk</string>
+    <string name="coordinates">Coordinates:</string>
+    <string name="updatedAt">Updated at:</string>
+    <string name="createdAt">Created at:</string>
 </resources>
