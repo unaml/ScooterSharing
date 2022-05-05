@@ -18,20 +18,15 @@ private const val TAG = "PaymentFragment"
 class PaymentFragment : Fragment() {
 
     //View binding for ScooterSharingActivity
-    private var _binding : FragmentPaymentBinding? = null
-    private lateinit var ridesRecyclerView: RecyclerView
+    private lateinit var paymentBinding: FragmentPaymentBinding
+    //private lateinit var ridesRecyclerView: RecyclerView
     //Setting up authentication
-    private lateinit var auth : FirebaseAuth
+    //private lateinit var auth : FirebaseAuth
     //Setting up the database
-    private lateinit var database : DatabaseReference
-
-    /**
-     * This property is only valid between `onCreateView()` and `onDestroyView()` methods.
-     */
-    private val binding get() = _binding!!
+    //private lateinit var database : DatabaseReference
 
     companion object {
-        private lateinit var adapter: ScooterArrayAdapter
+        //private lateinit var adapter: ScooterArrayAdapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,13 +38,12 @@ class PaymentFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentPaymentBinding.inflate(layoutInflater)
-        return (binding.root)
+    ) = FragmentPaymentBinding.inflate(inflater, container, false).let {
+        paymentBinding = it
+        it.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

@@ -27,7 +27,7 @@ import dk.itu.moapd.scootersharing.models.Scooter
 private const val TAG = "ScooterSharingFragment"
 //Firebase Realtime Database URL.
 const val DATABASE_URL =
-    "https://scootersharing-authentication-default-rtdb.europe-west1.firebasedatabase.app"
+    "https://scootersharing-authentication-default-rtdb.europe-west1.firebasedatabase.app/"
 /**
  * A simple [Fragment] subclass.
  * Use the [ScooterSharingFragment.newInstance] factory method to
@@ -37,8 +37,8 @@ class ScooterSharingFragment : Fragment(), ItemClickListener {
 
         //View binding for ScooterSharingActivity
         private var _binding : FragmentScooterSharingBinding? = null
-        //Setting up authentication
-        private lateinit var auth : FirebaseAuth
+    //Setting up authentication
+    private lateinit var auth : FirebaseAuth
         //Setting up the database
         private lateinit var database : DatabaseReference
 
@@ -120,7 +120,7 @@ class ScooterSharingFragment : Fragment(), ItemClickListener {
                     Log.d(TAG, "StartRide called")
                 }
                 //Edit button
-                editButton.setOnClickListener{
+                editButton?.setOnClickListener{
                     //Edit ride
                     Log.d(TAG, "EditRide called")
                     fm
@@ -134,37 +134,8 @@ class ScooterSharingFragment : Fragment(), ItemClickListener {
                 }
             }
 
-            // Firebase Sign Out.
-            binding.topAppBar?.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.more -> {
-                        auth.signOut()
-                        startLoginActivity()
-                        true
-                    }
-                    else -> false
-                }
             }
 
-            }
-
-        override fun onStart() {
-            super.onStart()
-            if(auth.currentUser == null)
-                startLoginActivity()
-                val user = auth.currentUser
-                binding.description?.text = getString(
-                R.string.firebase_user_description,
-            user?.email ?: user?.phoneNumber
-        )
-    }
-
-
-    private fun startLoginActivity() {
-        val intent = Intent(this@ScooterSharingFragment.context, LoginActivity::class.java)
-        startActivity(intent)
-        //finish()
-    }
 
     override fun onItemClickListener(scooter: Scooter, position: Int) {
         TODO("Not yet implemented")

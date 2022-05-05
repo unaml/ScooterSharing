@@ -40,4 +40,6 @@
     <string name="coordinates">Coordinates:</string>
     <string name="updatedAt">Updated at:</string>
     <string name="createdAt">Created at:</string>
+    <string name="submit">submit</string>
+    <string name="Payment">Payment Settings</string>
 </resources>

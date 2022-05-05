@@ -2,6 +2,7 @@ package dk.itu.moapd.scootersharing.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -11,16 +12,19 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.location.*
+import com.google.firebase.auth.FirebaseAuth
 import dk.itu.moapd.scootersharing.R
-import dk.itu.moapd.scootersharing.models.RidesDB
-import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
 import dk.itu.moapd.scootersharing.fragments.LocationFragment
 import dk.itu.moapd.scootersharing.fragments.MapsFragment
 import dk.itu.moapd.scootersharing.models.ScooterSharingVM
 import dk.itu.moapd.scootersharing.activities.LoginActivity
 import dk.itu.moapd.scootersharing.adapters.ScooterArrayAdapter
+import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
+import dk.itu.moapd.scootersharing.fragments.PaymentFragment
 import dk.itu.moapd.scootersharing.fragments.ScooterSharingFragment
+import dk.itu.moapd.scootersharing.models.RidesDB
 import java.util.concurrent.TimeUnit
 //import dk.itu.moapd.scootersharing.databinding.ResultLayoutBinding
 //import dk.itu.moapd.scootersharing.databinding.ButtonsLayoutBinding
@@ -30,19 +34,19 @@ class ScooterSharingActivity : AppCompatActivity() {
 
     //View binding for ScooterSharingActivity
     private lateinit var binding : ActivityScooterSharingBinding
-    //Shared preferences for saving the current state
-    private lateinit var preferences : SharedPreferences
     //The primary instance for receiving location updates.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     //This callback is called when `FusedLocationProviderClient` has a new `Location`.
     private lateinit var locationCallback: LocationCallback
+    //Setting up authentication
+    private lateinit var auth : FirebaseAuth
 
 
     //  A set of static attributes used in this activity class.
     companion object {
-        lateinit var ridesDB : RidesDB
-        private lateinit var adapter : ScooterArrayAdapter
         private const val ALL_PERMISSIONS_RESULT = 1011
+        lateinit var ridesDB : RidesDB
+
     }
 
     /**
@@ -56,13 +60,14 @@ class ScooterSharingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //FirebaseAuth.getInstance().signOut()
         //setContentView(R.layout.activity_scooter_sharing) i think i can delete this
+
+        //Initialize FireBase Auth.
+        auth = FirebaseAuth.getInstance()
 
         //Binding for layout and activity
         binding = ActivityScooterSharingBinding.inflate(layoutInflater)
-        // Get the shared preferences instance.
-        //TODO: add shared preferences
 
 
         // Get the latest fragment added in the fragment manager.
@@ -74,6 +79,7 @@ class ScooterSharingActivity : AppCompatActivity() {
             viewModel.addFragment(ScooterSharingFragment())
             viewModel.addFragment(LocationFragment())
             viewModel.addFragment(MapsFragment())
+            //viewModel.addFragment(PaymentFragment())
             viewModel.setFragment(0)
         }
 
@@ -85,14 +91,6 @@ class ScooterSharingActivity : AppCompatActivity() {
                 .hide(fragment)
                 .commit()
 
-        /** Add the fragment into the activity.
-        if (currentFragment == null) {
-            val fragment = ScooterSharingFragment()
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragment_container_view_tag, fragment)
-                .commit()
-        }*/
 
         // The current activity.
         var activeFragment: Fragment = viewModel.fragmentState.value!!
@@ -110,8 +108,32 @@ class ScooterSharingActivity : AppCompatActivity() {
         // Start the location-aware method.
         startLocationAware()
 
+        // Firebase Sign Out.
+        binding.topAppBar?.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.signout -> {
+                    AuthUI.getInstance().signOut(applicationContext).addOnCompleteListener {
+                        startLoginActivity()
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
+
         // Inflate the user interface into the current activity.
         setContentView(binding.root)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(auth.currentUser == null)
+            startLoginActivity()
+        val user = auth.currentUser
+       /** binding.description?.text = getString(
+            R.string.firebase_user_description,
+            user?.email ?: user?.phoneNumber
+        )*/
     }
 
     override fun onResume() {
@@ -227,4 +249,9 @@ class ScooterSharingActivity : AppCompatActivity() {
             .removeLocationUpdates(locationCallback)
     }
 
+    private fun startLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        //finish()
+    }
 }
