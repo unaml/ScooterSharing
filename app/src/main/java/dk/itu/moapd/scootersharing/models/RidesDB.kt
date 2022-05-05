@@ -6,43 +6,29 @@ import kotlin.collections.ArrayList
 class RidesDB private constructor (context : Context) {
 
     private val rides = ArrayList <Scooter>()
-    private var lastScooter = Scooter (0,"", "", 0)
+    private var lastScooter = Scooter ("",System.currentTimeMillis(), System.currentTimeMillis())
 
     companion object : RidesDBHolder<RidesDB, Context>(::RidesDB)
     init {
         rides.add(
-            Scooter(1, "Chuck Norris", "ITU", randomDate())
+            Scooter("hey", randomDate(), randomDate())
         )
         rides.add(
-            Scooter(2, "Bruce Lee", "Fields", randomDate())
+            Scooter("Bruce Lee")
         )
         rides.add (
-            Scooter (3, "Rambo", "Københavns Lufthavn", randomDate())
+            Scooter("Fabricio", randomDate(), randomDate())
         )
         rides.add (
-            Scooter (4, "Fabricio", "Nørrebrogade", randomDate())
+            Scooter("Maggy", randomDate(), randomDate())
         )
         rides.add (
-            Scooter (5, "Maggy Juicy", "Øresundskollegiet", randomDate())
+            Scooter("Juicy", randomDate(), randomDate())
         )
     }
     fun getScooters(): List<Scooter> {
         print(rides)
         return rides
-    }
-    fun addScooter(name: String, where: String) {
-        val last = Scooter(0,name, where, timestamp = System.currentTimeMillis())
-        rides.add(last)
-        lastScooter = last
-        print(last)
-    }
-    fun updateScooter(name: String, where: String) {
-        lastScooter.name = name
-        lastScooter.where = where
-        lastScooter.timestamp = System.currentTimeMillis()
-    }
-    fun getLastScooterInfo(): String {
-        return "Name: ${lastScooter.name}, where: ${lastScooter.where}, time: ${lastScooter.timestamp}"
     }
 
     fun deleteScooter(scooter: Scooter) {

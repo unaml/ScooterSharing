@@ -34,7 +34,7 @@ class EditRideFragment : Fragment() {
      */
     private val binding get() = _binding!!
 
-    private val scooter : Scooter = Scooter ("", "", 0)
+    private val scooter : Scooter = Scooter ("", System.currentTimeMillis(), System.currentTimeMillis())
     companion object {
         lateinit var ridesDB : RidesDB
     }
@@ -72,8 +72,6 @@ class EditRideFragment : Fragment() {
                     val name = nameText.text.toString().trim()
                     val where = whereText.text.toString().trim()
                     scooter.name = name
-                    scooter.where = where
-                    scooter.timestamp = System.currentTimeMillis()
                     //Reset
                     nameText.setText("")
                     whereText.setText("")

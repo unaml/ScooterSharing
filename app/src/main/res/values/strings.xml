@@ -21,4 +21,25 @@
     <string name="firebase_user_description">You are already logged in as %s, you need to log out before logging in as different user.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="phone">Phone Number</string>
+    <string name="cardNumber">Card Number</string>
+    <string name="expDate">Expiration Date</string>
+    <string name="cvc">CVC</string>
+    <string name="payment">COMPLETE PAYMENT</string>
+    <string name="mobilepay">CONTINUE WITH MOBILEPAY</string>
+    <string name="dateofbirth">Date of Birth</string>
+    <string name="text_tab_1">Location-Aware</string>
+    <string name="text_tab_2">Google Maps</string>
+    <string name="latitude_text">LATITUDE</string>
+    <string name="longitude_text">LONGITUDE</string>
+    <string name="time_text">TIME</string>
+    <string name="content_description_location">Location</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyA-jIAcJ2SHWO1G7DktvNyIDbCIl5jLJBk</string>
+    <string name="coordinates">Coordinates:</string>
+    <string name="updatedAt">Updated at:</string>
+    <string name="createdAt">Created at:</string>
+    <string name="submit">submit</string>
+    <string name="Payment">Payment Settings</string>
 </resources>

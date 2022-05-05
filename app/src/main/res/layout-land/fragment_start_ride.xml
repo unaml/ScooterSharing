@@ -4,26 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".StartRideFragment">
-
-    <!-- Recent added ride -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/info_text"/>
-
-        <EditText
-            android:id="@+id/info_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+    tools:context=".fragments.StartRideFragment">
 
     <!-- Which scooter -->
     <LinearLayout
@@ -41,25 +22,27 @@
             android:id="@+id/name_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/latitude_text"/>
 
-    <!-- Where is the scooter parked? -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/latitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/where_field"/>
+            android:text="@string/longitude_text"/>
 
         <EditText
+            android:id="@+id/longitude"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/where_text"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"

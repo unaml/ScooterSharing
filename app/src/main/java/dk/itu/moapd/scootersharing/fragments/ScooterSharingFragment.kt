@@ -7,16 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import androidx.recyclerview.widget.RecyclerView
 import dk.itu.moapd.scootersharing.R
-import dk.itu.moapd.scootersharing.models.RidesDB
 import dk.itu.moapd.scootersharing.activities.LoginActivity
 import dk.itu.moapd.scootersharing.adapters.ScooterArrayAdapter
 import dk.itu.moapd.scootersharing.databinding.FragmentScooterSharingBinding
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import dk.itu.moapd.scootersharing.interfaces.ItemClickListener
+import dk.itu.moapd.scootersharing.models.Scooter
 
 
 private const val TAG = "ScooterSharingFragment"
@@ -28,25 +33,31 @@ const val DATABASE_URL =
  * Use the [ScooterSharingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ScooterSharingFragment : Fragment(){
+class ScooterSharingFragment : Fragment(), ItemClickListener {
 
         //View binding for ScooterSharingActivity
         private var _binding : FragmentScooterSharingBinding? = null
-        private lateinit var ridesRecyclerView: RecyclerView
-        //Setting up authentication
-        private lateinit var auth : FirebaseAuth
+    //Setting up authentication
+    private lateinit var auth : FirebaseAuth
+        //Setting up the database
         private lateinit var database : DatabaseReference
 
-        /**
-         * This property is only valid between `onCreateView()` and `onDestroyView()` methods.
-        */
-        private val binding get() = _binding!!
+
+    /**
+     * This property is only valid between `onCreateView()` and `onDestroyView()` methods.
+     */
+    private val binding get() = _binding!!
 
         //  A set of static attributes used in this activity class.
         companion object {
-            lateinit var ridesDB : RidesDB
             private lateinit var adapter : ScooterArrayAdapter
+            private const val ALL_PERMISSIONS_RESULT = 1011
         }
+
+        /**
+     * Using lazy initialization to create the view model instance when the user access the object
+     * for the first time.
+     */
 
         override fun onCreateView(
             inflater: LayoutInflater,
@@ -69,14 +80,34 @@ class ScooterSharingFragment : Fragment(){
             auth = FirebaseAuth.getInstance()
             //Connect to realtime database
             database = Firebase.database(DATABASE_URL).reference
-            //Singleton to share an object between activites
-            ridesDB = RidesDB.get(requireContext())
-            val rides = ridesDB.getScooters()
+
+            // Enable offline capabilities.
+            database.keepSynced(true)
+
+            // Create the search query.
+            val query = database.child("scooters")
+                .child(auth.currentUser?.uid ?: "None")
+                .orderByChild("createdAt")
+
+            // A class provide by FirebaseUI to make a query in the database to fetch appropriate data.
+            val options = FirebaseRecyclerOptions.Builder<Scooter>()
+                .setQuery(query, Scooter::class.java)
+                .setLifecycleOwner(this)
+                .build()
+
+
             val fm = parentFragmentManager
 
 
-            //ScooterSharingFragment.adapter = ScooterArrayAdapter(ridesDB.getScooters()) TODO: uncomment
-            //(requireContext(), R.layout.list_rides, rides)
+            adapter = ScooterArrayAdapter(this, options)
+
+            // Define the recycler view layout manager.
+            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            binding.recyclerView.addItemDecoration(
+                DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+            )
+            binding.recyclerView.adapter = adapter
+
 
             with(binding){
                 //Start button
@@ -84,12 +115,12 @@ class ScooterSharingFragment : Fragment(){
                     //Start the application
                     fm
                         .beginTransaction()
-                        .replace(R.id.fragment_container_view_tag, StartRideFragment())
+                        .replace(R.id.fragment_container_view_tag, MapsFragment())
                         .commit()
                     Log.d(TAG, "StartRide called")
                 }
                 //Edit button
-                editButton.setOnClickListener{
+                editButton?.setOnClickListener{
                     //Edit ride
                     Log.d(TAG, "EditRide called")
                     fm
@@ -99,39 +130,16 @@ class ScooterSharingFragment : Fragment(){
                 }
                 //List button
                 listButton.setOnClickListener{
-                    ridesRecyclerView.adapter = ScooterSharingFragment.adapter
-                }
-            }
-
-            // Firebase Sign Out.
-            binding.topAppBar?.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.more -> {
-                        auth.signOut()
-                        startLoginActivity()
-                        true
-                    }
-                    else -> false
+                    recyclerView.adapter = adapter
                 }
             }
 
             }
 
-        override fun onStart() {
-            super.onStart()
-            if(auth.currentUser == null)
-                startLoginActivity()
-                val user = auth.currentUser
-                binding.description?.text = getString(
-                R.string.firebase_user_description,
-            user?.email ?: user?.phoneNumber
-        )
+
+    override fun onItemClickListener(scooter: Scooter, position: Int) {
+        TODO("Not yet implemented")
     }
 
-    private fun startLoginActivity() {
-        val intent = Intent(this@ScooterSharingFragment.context, LoginActivity::class.java)
-        startActivity(intent)
-        //finish()
-    }
 }
 
