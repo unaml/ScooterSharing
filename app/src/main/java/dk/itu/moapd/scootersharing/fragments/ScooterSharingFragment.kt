@@ -120,12 +120,12 @@ class ScooterSharingFragment : Fragment(), ItemClickListener {
                     Log.d(TAG, "StartRide called")
                 }
                 //Edit button
-                editButton?.setOnClickListener{
+                rental?.setOnClickListener{
                     //Edit ride
                     Log.d(TAG, "EditRide called")
                     fm
                         .beginTransaction()
-                        .replace(R.id.fragment_container_view_tag, EditRideFragment())
+                        .replace(R.id.fragment_container_view_tag, RideHistoryFragment())
                         .commit()
                 }
                 //List button

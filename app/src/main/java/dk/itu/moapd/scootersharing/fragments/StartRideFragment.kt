@@ -11,7 +11,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import dk.itu.moapd.scootersharing.models.RidesDB
 import dk.itu.moapd.scootersharing.activities.ScooterSharingActivity
 import dk.itu.moapd.scootersharing.adapters.ScooterArrayAdapter
 import dk.itu.moapd.scootersharing.databinding.FragmentStartRideBinding
@@ -90,20 +89,14 @@ class StartRideFragment : Fragment(), ItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Singleton to share an object between activites
-        ScooterSharingActivity.ridesDB = RidesDB.get(requireContext())
-        val rides = ScooterSharingActivity.ridesDB.getScooters()
-
         val fm = parentFragmentManager
 
         with(binding) {
             startButton.setOnClickListener {
                 val name = nameText.text.toString().trim()
-                val latitude = latitude.text.toString().toDoubleOrNull()
-                val longitude = longitude.text.toString().toDoubleOrNull()
                 if (nameText.text.isNotEmpty()) {
                     val timestamp = System.currentTimeMillis()
-                    val scooter = Scooter(name, timestamp, timestamp, latitude, longitude)
+                    val scooter = Scooter(name, timestamp, 100, true, timestamp, 0.0,0.0)
 
                     val uid = database.child("scooters")
                         .child(auth.currentUser?.uid!!)

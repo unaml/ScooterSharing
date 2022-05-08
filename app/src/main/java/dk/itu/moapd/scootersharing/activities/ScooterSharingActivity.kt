@@ -19,12 +19,8 @@ import dk.itu.moapd.scootersharing.R
 import dk.itu.moapd.scootersharing.fragments.LocationFragment
 import dk.itu.moapd.scootersharing.fragments.MapsFragment
 import dk.itu.moapd.scootersharing.models.ScooterSharingVM
-import dk.itu.moapd.scootersharing.activities.LoginActivity
-import dk.itu.moapd.scootersharing.adapters.ScooterArrayAdapter
 import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
-import dk.itu.moapd.scootersharing.fragments.PaymentFragment
 import dk.itu.moapd.scootersharing.fragments.ScooterSharingFragment
-import dk.itu.moapd.scootersharing.models.RidesDB
 import java.util.concurrent.TimeUnit
 //import dk.itu.moapd.scootersharing.databinding.ResultLayoutBinding
 //import dk.itu.moapd.scootersharing.databinding.ButtonsLayoutBinding
@@ -45,7 +41,6 @@ class ScooterSharingActivity : AppCompatActivity() {
     //  A set of static attributes used in this activity class.
     companion object {
         private const val ALL_PERMISSIONS_RESULT = 1011
-        lateinit var ridesDB : RidesDB
 
     }
 
