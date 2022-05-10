@@ -102,11 +102,11 @@ class ScooterSharingFragment : Fragment(), ItemClickListener {
             adapter = ScooterArrayAdapter(this, options)
 
             // Define the recycler view layout manager.
-            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            /*binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.recyclerView.addItemDecoration(
                 DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
             )
-            binding.recyclerView.adapter = adapter
+            binding.recyclerView.adapter = adapter*/
 
 
             with(binding){
@@ -119,18 +119,15 @@ class ScooterSharingFragment : Fragment(), ItemClickListener {
                         .commit()
                     Log.d(TAG, "StartRide called")
                 }
-                //Edit button
+                //RentalHistory button
                 rental?.setOnClickListener{
                     //Edit ride
                     Log.d(TAG, "EditRide called")
                     fm
                         .beginTransaction()
-                        .replace(R.id.fragment_container_view_tag, RideHistoryFragment())
+                        //.replace(R.id.fragment_container_view_tag, RideHistoryFragment())
+                        .replace(R.id.fragment_container_view_tag, PaymentFragment())
                         .commit()
-                }
-                //List button
-                listButton.setOnClickListener{
-                    recyclerView.adapter = adapter
                 }
             }
 

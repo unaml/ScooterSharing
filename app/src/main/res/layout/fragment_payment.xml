@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.PaymentFragment">
+    tools:context=".fragments.PaymentFragment"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp">
 
     <GridLayout
         android:layout_width="wrap_content"
-        android:layout_height="348dp">
+        android:layout_height="301dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,7 +23,10 @@
             android:layout_width="173dp"
             android:layout_height="wrap_content"
             android:layout_row="1"
-            android:layout_column="0" />
+            android:layout_column="0"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,14 +41,19 @@
             android:layout_height="wrap_content"
             android:layout_row="1"
             android:layout_column="2"
-            android:minHeight="48dp" />
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
             android:id="@+id/phone"
             android:layout_width="169dp"
             android:layout_height="wrap_content"
             android:layout_row="3"
-            android:layout_column="0" />
+            android:layout_column="0"
+            android:inputType="phone"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +67,11 @@
             android:layout_width="133dp"
             android:layout_height="wrap_content"
             android:layout_row="3"
-            android:layout_column="2" />
+            android:layout_column="2"
+            android:inputType="date"
+            android:hint="dd/mm/yyyy"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -68,10 +82,13 @@
 
         <EditText
             android:id="@+id/cardNumber"
-            android:layout_width="133dp"
+            android:layout_width="168dp"
             android:layout_height="wrap_content"
             android:layout_row="5"
-            android:layout_column="0" />
+            android:layout_column="0"
+            android:inputType="number"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -85,14 +102,23 @@
             android:layout_width="133dp"
             android:layout_height="wrap_content"
             android:layout_row="7"
-            android:layout_column="2" />
+            android:layout_column="2"
+            android:inputType="date"
+            android:maxLength="5"
+            android:hint="mm/yy"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
             android:id="@+id/cvc"
             android:layout_width="133dp"
             android:layout_height="wrap_content"
             android:layout_row="7"
-            android:layout_column="0" />
+            android:layout_column="0"
+            android:inputType="number"
+            android:maxLength="3"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
         <TextView
@@ -113,21 +139,24 @@
 
     <Button
         android:id="@+id/payment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="275dp"
+        android:layout_height="65dp"
         android:layout_row="5"
         android:layout_column="2"
-        android:text="@string/payment" />
+        android:layout_gravity="center"
+        android:text="@string/payment"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:id="@+id/mobilepay"
-        style="?attr/materialButtonOutlinedStyle"
-
-        android:layout_width="195dp"
-        android:layout_height="wrap_content"
+        android:layout_width="275dp"
+        android:layout_height="65dp"
         android:layout_row="6"
         android:layout_column="2"
-        android:drawableLeft="@drawable/ic_vector_mp" />
+        android:layout_gravity="center"
+        android:drawableTop="@drawable/ic_vector_mp"
+        android:backgroundTint="@color/babyblue"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <View
         android:id="@+id/view"

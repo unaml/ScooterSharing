@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../.gradle/caches/transforms-3/4b524e4ae54fe8329b7692ef768decf8/transformed/appcompat-1.4.1/res/layout/abc_activity_chooser_view_list_item.xml" value="0.2526041666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.229" />
         <entry key="app/src/main/res/drawable/ic_baseline_electric_scooter_24.xml" value="0.229" />
         <entry key="app/src/main/res/drawable/ic_baseline_not_listed_location_128.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/ic_check_circle_48px.xml" value="0.2155" />
@@ -35,8 +36,8 @@
         <entry key="app/src/main/res/layout/fragment_q_r.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/fragment_ride_history.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/fragment_rides_list.xml" value="0.2526041666666667" />
-        <entry key="app/src/main/res/layout/fragment_scooter_sharing.xml" value="0.42269736842105265" />
-        <entry key="app/src/main/res/layout/fragment_start_ride.xml" value="0.36825256347656254" />
+        <entry key="app/src/main/res/layout/fragment_scooter_sharing.xml" value="0.2753783376593339" />
+        <entry key="app/src/main/res/layout/fragment_start_ride.xml" value="0.2934768676757813" />
         <entry key="app/src/main/res/layout/fragment_start_ride2.xml" value="0.2520833333333333" />
         <entry key="app/src/main/res/layout/list_rides.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/menu/top_app_bar.xml" value="0.2526041666666667" />
