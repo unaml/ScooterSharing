@@ -17,7 +17,7 @@ tools:context=".fragments.MapsFragment">
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:backgroundTint="@color/purple_200"
-        android:src="@drawable/ic_baseline_check_circle_24"
+        android:src="@drawable/ic_baseline_qr_code_scanner_24"
         android:contentDescription="@string/submit"
         android:visibility="invisible"
         />

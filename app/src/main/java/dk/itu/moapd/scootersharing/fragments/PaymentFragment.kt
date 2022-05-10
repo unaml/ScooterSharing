@@ -1,32 +1,25 @@
 package dk.itu.moapd.scootersharing.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import dk.itu.moapd.scootersharing.databinding.FragmentPaymentBinding
+import java.util.*
 
-
-private const val TAG = "PaymentFragment"
+private const val ARG_ELAPSED = "elapsed"
 
 class PaymentFragment : Fragment() {
-
     //View binding for ScooterSharingActivity
     private lateinit var paymentBinding: FragmentPaymentBinding
-    //private lateinit var ridesRecyclerView: RecyclerView
-    //Setting up authentication
-    //private lateinit var auth : FirebaseAuth
-    //Setting up the database
-    //private lateinit var database : DatabaseReference
-
-    companion object {
-        //private lateinit var adapter: ScooterArrayAdapter
-    }
+    private var elapsed: Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            elapsed = it.getLong(ARG_ELAPSED, 0)
+        }
     }
 
     override fun onCreateView(
@@ -40,19 +33,32 @@ class PaymentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         with(paymentBinding) {
             payment.setOnClickListener {
-                progressBar?.visibility = View.VISIBLE
+                loadingButton()
+
             }
             mobilepay.setOnClickListener {
-
+                loadingButton()
             }
         }
-
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    private fun FragmentPaymentBinding.loadingButton() {
+        progressBar?.visibility = View.VISIBLE
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                progressBar?.visibility = View.INVISIBLE
+            }
+        }, 2000)
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(elapsed: Long) = PaymentFragment().apply {
+            arguments = Bundle().apply {
+                putLong(ARG_ELAPSED, elapsed)
+            }
+        }
     }
 }
