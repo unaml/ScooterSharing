@@ -119,18 +119,22 @@
 
         <Button
             android:id="@+id/mobilepay"
-            style="?attr/materialButtonOutlinedStyle"
-
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_row="9"
-            android:layout_column="0"
-            android:drawableLeft="@drawable/ic_vector_mp" />
+            android:layout_width="275dp"
+            android:layout_height="65dp"
+            android:layout_row="6"
+            android:layout_column="2"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/ic_vector_mp"
+            android:backgroundTint="@color/babyblue"
+            tools:ignore="SpeakableTextPresentCheck" />
 </GridLayout>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
 
 </LinearLayout>
