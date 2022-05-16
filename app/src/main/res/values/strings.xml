@@ -44,4 +44,8 @@
     <string name="Payment">Payment Settings</string>
     <string name="rideMessage" formatted="true">You are currently riding %s</string>
     <string name="endButton">End Ride</string>
+    <string name="startDate">Rented at:</string>
+    <string name="price">Price:</string>
+    <string name="Receipt">Receipt</string>
+    <string name="duration">Duration of ride:</string>
 </resources>

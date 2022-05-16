@@ -43,6 +43,7 @@ class ActiveRideFragment : Fragment(), View.OnClickListener {
         it.root
     }.apply {
         with(binding) {
+            //change string to current ride rideDescription
             endButton?.setOnClickListener(this@ActiveRideFragment)
         }
     }

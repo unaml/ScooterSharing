@@ -3,11 +3,10 @@ package dk.itu.moapd.scootersharing.activities
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -16,12 +15,13 @@ import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import dk.itu.moapd.scootersharing.R
+import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
 import dk.itu.moapd.scootersharing.fragments.LocationFragment
 import dk.itu.moapd.scootersharing.fragments.MapsFragment
-import dk.itu.moapd.scootersharing.models.ScooterSharingVM
-import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
 import dk.itu.moapd.scootersharing.fragments.ScooterSharingFragment
+import dk.itu.moapd.scootersharing.models.ScooterSharingVM
 import java.util.concurrent.TimeUnit
+
 //import dk.itu.moapd.scootersharing.databinding.ResultLayoutBinding
 //import dk.itu.moapd.scootersharing.databinding.ButtonsLayoutBinding
 private const val TAG = "ScooterSharingActivity"
@@ -29,13 +29,16 @@ private const val TAG = "ScooterSharingActivity"
 class ScooterSharingActivity : AppCompatActivity() {
 
     //View binding for ScooterSharingActivity
-    private lateinit var binding : ActivityScooterSharingBinding
+    private lateinit var binding: ActivityScooterSharingBinding
+
     //The primary instance for receiving location updates.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
     //This callback is called when `FusedLocationProviderClient` has a new `Location`.
     private lateinit var locationCallback: LocationCallback
+
     //Setting up authentication
-    private lateinit var auth : FirebaseAuth
+    private lateinit var auth: FirebaseAuth
 
 
     //  A set of static attributes used in this activity class.
@@ -104,7 +107,7 @@ class ScooterSharingActivity : AppCompatActivity() {
         startLocationAware()
 
         // Firebase Sign Out.
-        binding.topAppBar?.setOnMenuItemClickListener {
+        binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.signout -> {
                     AuthUI.getInstance().signOut(applicationContext).addOnCompleteListener {
@@ -122,12 +125,12 @@ class ScooterSharingActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if(auth.currentUser == null)
+        if (auth.currentUser == null)
             startLoginActivity()
         val user = auth.currentUser
-       /** binding.description?.text = getString(
-            R.string.firebase_user_description,
-            user?.email ?: user?.phoneNumber
+        /** binding.description?.text = getString(
+        R.string.firebase_user_description,
+        user?.email ?: user?.phoneNumber
         )*/
     }
 

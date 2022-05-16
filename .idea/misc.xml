@@ -36,6 +36,7 @@
         <entry key="app/src/main/res/layout/fragment_marker.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/fragment_payment.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/fragment_q_r.xml" value="0.2515625" />
+        <entry key="app/src/main/res/layout/fragment_receipt.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/fragment_ride_history.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/fragment_rides_list.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/fragment_scooter_sharing.xml" value="0.2753783376593339" />

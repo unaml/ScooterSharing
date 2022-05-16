@@ -13,12 +13,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.startForegroundService
 import androidx.fragment.app.Fragment
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.MapsInitializer.Renderer
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -28,12 +31,16 @@ import com.google.mlkit.vision.barcode.common.Barcode.FORMAT_QR_CODE
 import dk.itu.moapd.scootersharing.R
 import dk.itu.moapd.scootersharing.R.id.fragment_container_view_tag
 import dk.itu.moapd.scootersharing.databinding.FragmentMapsBinding
+import dk.itu.moapd.scootersharing.models.Rides
 import dk.itu.moapd.scootersharing.models.Scooter
 import dk.itu.moapd.scootersharing.services.ScooterService
 
 class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListener {
 
     private lateinit var mapsBinding: FragmentMapsBinding
+    private lateinit var database : DatabaseReference
+    private lateinit var auth : FirebaseAuth
+
     private val qrCodeScanner = registerForActivityResult(
         ActivityResultContracts.TakePicturePreview()
     ) {
@@ -45,6 +52,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                     putExtra("command", "start")
                 }
                 startForegroundService(this, intent)
+
                 parentFragmentManager
                     .beginTransaction()
                     .replace(fragment_container_view_tag, ActiveRideFragment())
@@ -60,6 +68,9 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
         private val TAG = MapsFragment::class.qualifiedName
     }
 
+    /**
+     * Adds markers to the map based on location of scooters
+     */
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { googleMap ->
         // Add a marker in ITU and move the camera
@@ -74,7 +85,6 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                     val tempScooter = postSnapshot.getValue(Scooter::class.java)
                     var tempPosition =
                         tempScooter?.let { LatLng(it.getLat(), tempScooter.getLon()) }
-                    //Log.d(TAG, "Print my scooter: " + tempScooter.toString())
                     if (tempScooter != null) {
                         tempPosition?.let {
                             MarkerOptions()
@@ -83,7 +93,6 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                         }?.let {
                             googleMap.addMarker(
                                 it
-
                             )
                         }
                     }
@@ -103,6 +112,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
             fab.setOnClickListener(this@MapsFragment)
         }
 
+        //Floating action button appears when marker is selected
         googleMap.setOnMarkerClickListener { marker ->
             if (marker.isInfoWindowShown) {
                 Log.d(TAG, marker.toString())
@@ -119,7 +129,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
             true
         }
 
-
+        //Map is focused at ITU when opened
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(itu, 13f))
         googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 
@@ -181,16 +191,22 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
         }
     }
 
-    /*override fun onMarkerClick(marker: Marker): Boolean {
-    with(mapsBinding){
-        fab.show()
-        Log.d(TAG, "im clicking")
-    }
-    return false
-}*/
-
-
+    //Launches the QR-code scanner
     override fun onClick(ignored: View?) {
         qrCodeScanner.launch(null)
+    }
+
+    private fun addRide() {
+        //Connect to database
+        database = Firebase.database(DATABASE_URL).reference
+        //Create search query
+        val query = database.child("rides")
+            .child(auth.currentUser?.uid ?: "None")
+            .orderByChild("startTime")
+        // Execute a query in the database to fetch appropriate data.
+        val options = FirebaseRecyclerOptions.Builder<Rides>()
+            .setQuery(query, Rides::class.java)
+            .setLifecycleOwner(this)
+            .build()
     }
 }
