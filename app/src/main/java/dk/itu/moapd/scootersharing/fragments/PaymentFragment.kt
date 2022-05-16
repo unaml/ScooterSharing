@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import dk.itu.moapd.scootersharing.R
 import dk.itu.moapd.scootersharing.databinding.FragmentPaymentBinding
 import java.util.*
 
@@ -49,8 +50,13 @@ class PaymentFragment : Fragment() {
         Timer().schedule(object : TimerTask() {
             override fun run() {
                 progressBar?.visibility = View.INVISIBLE
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_view_tag, ActiveRideFragment())
+                    .commit()
             }
         }, 2000)
+
     }
 
     companion object {
