@@ -1,39 +1,42 @@
 package dk.itu.moapd.scootersharing
 
-import androidx.fragment.app.testing.FragmentScenario
-import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.lifecycle.Lifecycle
-import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dk.itu.moapd.scootersharing.activities.ScooterSharingActivity
-import dk.itu.moapd.scootersharing.fragments.ScooterSharingFragment
-import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
 @RunWith(AndroidJUnit4::class)
 class ScooterSharingFragmentInstrumentedTest {
-
-    private lateinit var scenario: ActivityScenario<ScooterSharingActivity>
-
-    @Before
-    fun setup(){
-        scenario = launchActivity()
-        scenario.moveToState(Lifecycle.State.STARTED)
-    }
+    @get:Rule
+    val activityScenario = ActivityScenarioRule(ScooterSharingActivity::class.java)
 
     @Test
-    fun checkStartRideButton(){
-        launchFragmentInContainer<ScooterSharingFragment>()
+    fun checkStartRideButtonText() {
         onView(withId(R.id.start_button)).check(matches(withText("Start Ride")))
     }
 
-    /**@Test
-    fun testStartRideButton(){
-        onView(withId(R.id.start_button)).perform(click())
+    @Test
+    fun checkRideHistoryButtonText() {
+        onView(withId(R.id.rental)).check(matches(withText("Ride History")))
+    }
 
-    }*/
+    @Test
+    fun pressStartRideButton() {
+        onView(withId(R.id.start_button)).perform(ViewActions.click())
+        onView(withId(R.id.map)).check(matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun pressRideHistoryButton() {
+        onView(withId(R.id.rental)).perform(ViewActions.click())
+        //TODO onView(withId(R.id.<>)).check(matches(isDisplayed()))
+    }
 }
