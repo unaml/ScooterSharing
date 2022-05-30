@@ -9,11 +9,12 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import dk.itu.moapd.scootersharing.R
+import dk.itu.moapd.scootersharing.databinding.ActivityLoginBinding
+import dk.itu.moapd.scootersharing.databinding.FragmentRideHistoryBinding
 
 
 class LoginActivity : AppCompatActivity() {
 
-    //private lateinit var googleSignInClient: GoogleSignInClient
 
     private val signInLauncher =
         registerForActivityResult(
@@ -23,7 +24,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         createSignInIntent()
-
     }
 
     private fun createSignInIntent() {
@@ -31,8 +31,6 @@ class LoginActivity : AppCompatActivity() {
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build())
-        //googleSignInClient = GoogleSignIn.getClient(this, options)
-        // Create and launch sign-in intent.
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)

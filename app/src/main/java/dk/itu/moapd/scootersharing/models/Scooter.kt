@@ -13,6 +13,8 @@ import com.google.firebase.database.IgnoreExtraProperties
     open class Scooter(
         var name: String? = null,
         val createdAt: Long? = null,
+        val batteryLevel: Int = 100,
+        val locked: Boolean = true,
         var updatedAt: Long? = null,
         var latitude: Double? = null,
         var longitude: Double? = null
@@ -31,6 +33,8 @@ import com.google.firebase.database.IgnoreExtraProperties
                 "name" to name,
                 "createdAt" to createdAt,
                 "updatedAt" to updatedAt,
+                "batteryLevel" to batteryLevel,
+                "locked" to locked,
                 "latitude" to latitude,
                 "longitude" to longitude
             )
@@ -59,5 +63,6 @@ import com.google.firebase.database.IgnoreExtraProperties
         fun getUpdated(): Long? {
             return updatedAt
         }
+
 
     }

@@ -4,17 +4,22 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../.gradle/caches/transforms-3/4b524e4ae54fe8329b7692ef768decf8/transformed/appcompat-1.4.1/res/layout/abc_activity_chooser_view_list_item.xml" value="0.2526041666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.229" />
+        <entry key="app/src/main/res/drawable/ic_baseline_electric_scooter_24.xml" value="0.229" />
         <entry key="app/src/main/res/drawable/ic_baseline_not_listed_location_128.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/ic_check_circle_48px.xml" value="0.2155" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/ic_mp_rgb_notm_logo_type_vertical_blue.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/ic_vector_mp.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/mp_rgb_notm_logo_type_horisontal_blue.xml" value="0.213" />
+        <entry key="app/src/main/res/layout-land/activity_login.xml" value="0.21296296296296297" />
         <entry key="app/src/main/res/layout-land/activity_scooter_sharing.xml" value="0.2138447971781305" />
+        <entry key="app/src/main/res/layout-land/fragment_active_ride.xml" value="0.13139329805996472" />
         <entry key="app/src/main/res/layout-land/fragment_edit_ride.xml" value="0.2138447971781305" />
         <entry key="app/src/main/res/layout-land/fragment_location.xml" value="0.1" />
         <entry key="app/src/main/res/layout-land/fragment_maps.xml" value="0.21340388007054673" />
         <entry key="app/src/main/res/layout-land/fragment_payment.xml" value="0.21340388007054673" />
+        <entry key="app/src/main/res/layout-land/fragment_ride_history.xml" value="0.21296296296296297" />
         <entry key="app/src/main/res/layout-land/fragment_rides_list.xml" value="0.2138447971781305" />
         <entry key="app/src/main/res/layout-land/fragment_scooter_sharing.xml" value="0.2138447971781305" />
         <entry key="app/src/main/res/layout-land/fragment_start_ride.xml" value="0.2138447971781305" />
@@ -24,15 +29,20 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_scooter_sharing.xml" value="0.23637542724609376" />
         <entry key="app/src/main/res/layout/activity_start_ride.xml" value="0.1171875" />
+        <entry key="app/src/main/res/layout/fragment_active_ride.xml" value="0.3156697591145836" />
         <entry key="app/src/main/res/layout/fragment_edit_ride.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/fragment_location.xml" value="0.2520833333333333" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.2520833333333333" />
         <entry key="app/src/main/res/layout/fragment_marker.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/fragment_payment.xml" value="0.2526041666666667" />
+        <entry key="app/src/main/res/layout/fragment_q_r.xml" value="0.2515625" />
+        <entry key="app/src/main/res/layout/fragment_receipt.xml" value="0.2515625" />
+        <entry key="app/src/main/res/layout/fragment_ride_history.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/fragment_rides_list.xml" value="0.2526041666666667" />
-        <entry key="app/src/main/res/layout/fragment_scooter_sharing.xml" value="0.23854166666666668" />
-        <entry key="app/src/main/res/layout/fragment_start_ride.xml" value="0.36825256347656254" />
+        <entry key="app/src/main/res/layout/fragment_scooter_sharing.xml" value="0.2753783376593339" />
+        <entry key="app/src/main/res/layout/fragment_start_ride.xml" value="0.2934768676757813" />
         <entry key="app/src/main/res/layout/fragment_start_ride2.xml" value="0.2520833333333333" />
+        <entry key="app/src/main/res/layout/fragment_test.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/list_rides.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/menu/top_app_bar.xml" value="0.2526041666666667" />
       </map>

@@ -7,12 +7,13 @@
     <string name="start_button">Start Ride</string>
     <string name="info_text">Info</string>
     <string name="update_button">Update Ride</string>
-    <string name="edit_button">Edit Ride</string>
+    <string name="ride_history_button">Ride History</string>
     <string name="list_button">List Rides</string>
     <string name="title">Title</string>
     <string name="where">Where</string>
     <string name="when">DateTime</string>
     <string name="backitup">Go Back</string>
+    <string name="mainpage">Back to main screen</string>
     <string name="sign_out">Sign out</string>
     <string name="settings">Settings</string>
     <string name="content_description_sign_out">Sign out</string>
@@ -42,4 +43,10 @@
     <string name="createdAt">Created at:</string>
     <string name="submit">submit</string>
     <string name="Payment">Payment Settings</string>
+    <string name="rideMessage" formatted="true">You are currently riding %s</string>
+    <string name="endButton">End Ride</string>
+    <string name="startDate">Rented at:</string>
+    <string name="price">Price:</string>
+    <string name="Receipt">Receipt</string>
+    <string name="duration">Duration of ride:</string>
 </resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +8,7 @@
 
     <GridLayout
         android:layout_width="wrap_content"
-        android:layout_height="348dp">
+        android:layout_height="301dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,7 +20,10 @@
             android:layout_width="173dp"
             android:layout_height="wrap_content"
             android:layout_row="1"
-            android:layout_column="0" />
+            android:layout_column="0"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,14 +38,19 @@
             android:layout_height="wrap_content"
             android:layout_row="1"
             android:layout_column="2"
-            android:minHeight="48dp" />
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
             android:id="@+id/phone"
             android:layout_width="169dp"
             android:layout_height="wrap_content"
             android:layout_row="3"
-            android:layout_column="0" />
+            android:layout_column="0"
+            android:inputType="phone"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +64,11 @@
             android:layout_width="133dp"
             android:layout_height="wrap_content"
             android:layout_row="3"
-            android:layout_column="2" />
+            android:layout_column="2"
+            android:hint="dd/mm/yyyy"
+            android:inputType="date"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -68,10 +79,13 @@
 
         <EditText
             android:id="@+id/cardNumber"
-            android:layout_width="133dp"
+            android:layout_width="168dp"
             android:layout_height="wrap_content"
             android:layout_row="5"
-            android:layout_column="0" />
+            android:layout_column="0"
+            android:inputType="number"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -85,14 +99,23 @@
             android:layout_width="133dp"
             android:layout_height="wrap_content"
             android:layout_row="7"
-            android:layout_column="2" />
+            android:layout_column="2"
+            android:hint="mm/yy"
+            android:inputType="date"
+            android:maxLength="5"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
             android:id="@+id/cvc"
             android:layout_width="133dp"
             android:layout_height="wrap_content"
             android:layout_row="7"
-            android:layout_column="0" />
+            android:layout_column="0"
+            android:inputType="number"
+            android:maxLength="3"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
         <TextView
@@ -109,28 +132,36 @@
             android:layout_column="0"
             android:text="@string/cvc" />
 
-        <Button
-            android:id="@+id/payment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_row="8"
-            android:layout_column="0"
-            android:text="@string/payment" />
+    </GridLayout>
 
-        <Button
-            android:id="@+id/mobilepay"
-            style="?attr/materialButtonOutlinedStyle"
+    <Button
+        android:id="@+id/payment"
+        android:layout_width="275dp"
+        android:layout_height="65dp"
+        android:layout_row="5"
+        android:layout_column="2"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="@string/payment" />
 
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_row="9"
-            android:layout_column="0"
-            android:drawableLeft="@drawable/ic_vector_mp" />
-</GridLayout>
+    <Button
+        android:id="@+id/mobilepay"
+        android:layout_width="275dp"
+        android:layout_height="65dp"
+        android:layout_row="6"
+        android:layout_column="2"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/babyblue"
+        android:drawableTop="@drawable/ic_vector_mp"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 </LinearLayout>
