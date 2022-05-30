@@ -21,6 +21,7 @@ class ScooterSharingMapInstrumentedTest {
     @get:Rule
     val activityScenario = ActivityScenarioRule(ScooterSharingActivity::class.java)
 
+    //Tests that selecting a scooter makes the qr button appear
     @Test
     fun pressScooterMarkerButton() {
         onView(withId(R.id.start_button)).perform(click())

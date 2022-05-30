@@ -1,13 +1,28 @@
+package dk.itu.moapd.scootersharing
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import dk.itu.moapd.scootersharing.R
-import java.util.regex.Pattern
 
 /**
  * A class to validate the content from `EditText` components.
  */
 class TextValidator (private val view: View) : TextWatcher{
+    /*
+
+    @Test
+    fun textValidator_InvalidPasswordThreeChars_ReturnsFalse() {
+        assertThat(TextValidator.isValidPassword("AB1"), `is`(false))
+    }
+
+    @Test
+    fun textValidator_InvalidPasswordTwoChars_ReturnsFalse() {
+        assertThat(TextValidator.isValidPassword("A1"), `is`(false))
+    }
+
+    @Test
+    fun textValidator_EmptyPasswordString_ReturnsFalse() {
+        assertThat(TextValidator.isValidPassword(""), `is`(false))
+    }
 
     /**
      * A boolean parameter to define the name validation status.
@@ -69,14 +84,14 @@ class TextValidator (private val view: View) : TextWatcher{
         }
 
         /**override fun afterTextChanged(s: Editable?) {
-            when (view.id) {
-                R.id.name_edit_text ->
-                    isValidName = isValidName(s.toString())
-                R.id.email_edit_text ->
-                    isValidEmail = isValidEmail(s.toString())
-                R.id.password_edit_text ->
-                    isValidPassword = isValidPassword(s.toString())
-            }
+        when (view.id) {
+        R.id.name_edit_text ->
+        isValidName = isValidName(s.toString())
+        R.id.email_edit_text ->
+        isValidEmail = isValidEmail(s.toString())
+        R.id.password_edit_text ->
+        isValidPassword = isValidPassword(s.toString())
+        }
         }*/
     }
 
@@ -113,12 +128,23 @@ class TextValidator (private val view: View) : TextWatcher{
      */
     override fun afterTextChanged(s: Editable?) {
         /**when (view.id) {
-            R.id.name_edit_text ->
-                isValidName = isValidName(s.toString())
-            R.id.email_edit_text ->
-                isValidEmail = isValidEmail(s.toString())
-            R.id.password_edit_text ->
-                isValidPassword = isValidPassword(s.toString())
+        R.id.name_edit_text ->
+        isValidName = isValidName(s.toString())
+        R.id.email_edit_text ->
+        isValidEmail = isValidEmail(s.toString())
+        R.id.password_edit_text ->
+        isValidPassword = isValidPassword(s.toString())
         }*/
+    }*/
+    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun afterTextChanged(p0: Editable?) {
+        TODO("Not yet implemented")
     }
 }

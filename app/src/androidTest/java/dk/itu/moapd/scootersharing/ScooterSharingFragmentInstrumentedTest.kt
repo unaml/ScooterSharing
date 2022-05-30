@@ -18,25 +18,23 @@ class ScooterSharingFragmentInstrumentedTest {
     @get:Rule
     val activityScenario = ActivityScenarioRule(ScooterSharingActivity::class.java)
 
+    //Checks that the text on the button says Start Ride
     @Test
     fun checkStartRideButtonText() {
         onView(withId(R.id.start_button)).check(matches(withText("Start Ride")))
     }
 
+    //Checks that the text on the button says Ride History
     @Test
     fun checkRideHistoryButtonText() {
         onView(withId(R.id.rental)).check(matches(withText("Ride History")))
     }
 
+    //Checks that the map opens when pressing the start ride button
     @Test
     fun pressStartRideButton() {
         onView(withId(R.id.start_button)).perform(ViewActions.click())
         onView(withId(R.id.map)).check(matches(ViewMatchers.isDisplayed()))
     }
 
-    @Test
-    fun pressRideHistoryButton() {
-        onView(withId(R.id.rental)).perform(ViewActions.click())
-        //TODO onView(withId(R.id.<>)).check(matches(isDisplayed()))
-    }
 }
