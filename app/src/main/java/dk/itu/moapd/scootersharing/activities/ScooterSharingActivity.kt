@@ -18,6 +18,7 @@ import dk.itu.moapd.scootersharing.R
 import dk.itu.moapd.scootersharing.databinding.ActivityScooterSharingBinding
 import dk.itu.moapd.scootersharing.fragments.LocationFragment
 import dk.itu.moapd.scootersharing.fragments.MapsFragment
+import dk.itu.moapd.scootersharing.fragments.PaymentFragment
 import dk.itu.moapd.scootersharing.fragments.ScooterSharingFragment
 import dk.itu.moapd.scootersharing.models.ScooterSharingVM
 import java.util.concurrent.TimeUnit
@@ -77,7 +78,7 @@ class ScooterSharingActivity : AppCompatActivity() {
             viewModel.addFragment(ScooterSharingFragment())
             viewModel.addFragment(LocationFragment())
             viewModel.addFragment(MapsFragment())
-            //viewModel.addFragment(PaymentFragment())
+            viewModel.addFragment(PaymentFragment())
             viewModel.setFragment(0)
         }
 
@@ -115,6 +116,10 @@ class ScooterSharingActivity : AppCompatActivity() {
                     }
                     true
                 }
+                R.id.paysettings -> {
+                    viewModel.setFragment(3)
+                    true
+                }
                 else -> false
             }
         }
@@ -128,10 +133,6 @@ class ScooterSharingActivity : AppCompatActivity() {
         if (auth.currentUser == null)
             startLoginActivity()
         val user = auth.currentUser
-        /** binding.description?.text = getString(
-        R.string.firebase_user_description,
-        user?.email ?: user?.phoneNumber
-        )*/
     }
 
     override fun onResume() {

@@ -10,22 +10,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import dk.itu.moapd.scootersharing.DATABASE_URL
 import dk.itu.moapd.scootersharing.R
 import dk.itu.moapd.scootersharing.R.id.fragment_container_view_tag
 import dk.itu.moapd.scootersharing.databinding.FragmentActiveRideBinding
+import dk.itu.moapd.scootersharing.models.Rides
 import dk.itu.moapd.scootersharing.services.ScooterService
 
 class ActiveRideFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentActiveRideBinding
+
     private var broadcast = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             parentFragmentManager
                 .beginTransaction()
-                .replace(
+                /*.replace(
                     fragment_container_view_tag, PaymentFragment.newInstance(
                         intent?.getLongExtra("elapsed", 0) ?: 0
-                    )
-                ).commit()
+                    ))*/
+                .replace(fragment_container_view_tag, ScooterSharingFragment())
+                .commit()
         }
     }
 

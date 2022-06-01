@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.startForegroundService
@@ -28,6 +30,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions.Builder
 import com.google.mlkit.vision.barcode.BarcodeScanning.getClient
 import com.google.mlkit.vision.barcode.common.Barcode.FORMAT_QR_CODE
+import dk.itu.moapd.scootersharing.DATABASE_URL
 import dk.itu.moapd.scootersharing.R
 import dk.itu.moapd.scootersharing.R.id.fragment_container_view_tag
 import dk.itu.moapd.scootersharing.databinding.FragmentMapsBinding
@@ -36,27 +39,35 @@ import dk.itu.moapd.scootersharing.models.Scooter
 import dk.itu.moapd.scootersharing.services.ScooterService
 
 class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListener {
-
     private lateinit var mapsBinding: FragmentMapsBinding
-    private lateinit var database : DatabaseReference
-    private lateinit var auth : FirebaseAuth
+    private lateinit var database: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+
+    private var scooter: String = ""
 
     private val qrCodeScanner = registerForActivityResult(
         ActivityResultContracts.TakePicturePreview()
     ) {
         val client = getClient(Builder().setBarcodeFormats(FORMAT_QR_CODE).build())
         client.process(it, 0).addOnSuccessListener { results ->
-            Log.d(TAG, results.firstOrNull()?.rawValue ?: "None")
-            requireContext().run {
-                val intent = Intent(this, ScooterService::class.java).apply {
-                    putExtra("command", "start")
-                }
-                startForegroundService(this, intent)
+            val found = results.firstOrNull()?.rawValue ?: "Unknown"
+            if (found == scooter) {
+                requireContext().run {
+                    val intent = Intent(this, ScooterService::class.java).apply {
+                        putExtra("command", "start")
+                        putExtra("scooter", scooter)
+                    }
+                    startForegroundService(this, intent)
 
-                parentFragmentManager
-                    .beginTransaction()
-                    .replace(fragment_container_view_tag, ActiveRideFragment())
-                    .commit()
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(fragment_container_view_tag, ActiveRideFragment())
+                        .commit()
+                }
+            } else {
+                Toast.makeText(requireContext(), "Invalid QR code, please try again", LENGTH_LONG)
+                    .show()
+                Log.d(TAG, results.firstOrNull()?.rawValue ?: "None")
             }
         }
     }
@@ -114,6 +125,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
 
         //Floating action button appears when marker is selected
         googleMap.setOnMarkerClickListener { marker ->
+            scooter = marker.title ?: "Unknown"
             if (marker.isInfoWindowShown) {
                 Log.d(TAG, marker.toString())
                 with(mapsBinding) {

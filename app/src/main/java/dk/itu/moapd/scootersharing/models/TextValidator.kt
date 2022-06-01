@@ -9,7 +9,7 @@ import java.util.regex.Pattern
 /**
  * A class to validate the content from `EditText` components.
  */
-class TextValid(private val view: View) : TextWatcher {
+class TextValidator(private val view: View) : TextWatcher {
 
     /**
      * A boolean parameter to define the name validation status.
@@ -32,6 +32,9 @@ class TextValid(private val view: View) : TextWatcher {
         private val NAME_PATTERN = Pattern.compile(
             "^[A-Z]+[a-z]{2,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?\$"
         )
+        private val PHONE_PATTERN = Pattern.compile(
+            "^[0-9()-]{5,10}\$"
+        )
 
 
 
@@ -53,8 +56,8 @@ class TextValid(private val view: View) : TextWatcher {
          *
          * @return A boolean value with the validation result.
          */
-        fun isValidPhone(phone: Editable?): Boolean {
-            return android.util.Patterns.PHONE.matcher(phone.toString()).matches()
+        fun isValidPhone(phone: String): Boolean {
+            return PHONE_PATTERN.matcher(phone).matches()
         }
     }
 
@@ -106,7 +109,7 @@ class TextValid(private val view: View) : TextWatcher {
             R.id.lastName ->
                 isValidName = isValidName(s.toString())
             R.id.phone ->
-                isValidPhone = isValidPhone(s)
+                isValidPhone = isValidPhone(s.toString())
         }
     }
 

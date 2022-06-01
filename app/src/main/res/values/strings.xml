@@ -42,8 +42,8 @@
     <string name="updatedAt">Updated at:</string>
     <string name="createdAt">Created at:</string>
     <string name="submit">submit</string>
-    <string name="Payment">Payment Settings</string>
-    <string name="rideMessage" formatted="true">You are currently riding %s</string>
+    <string name="Payments">Payment Settings</string>
+    <string name="rideMessage" formatted="true">You are currently riding a scooter</string>
     <string name="endButton">End Ride</string>
     <string name="startDate">Rented at:</string>
     <string name="price">Price:</string>

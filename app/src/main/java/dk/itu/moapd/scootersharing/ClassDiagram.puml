@@ -3,25 +3,94 @@
 
 abstract class AbstractList
 abstract AbstractCollection
-interface List
-interface Collection
+interface ItemClickListener
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
+ScooterSharingActivity *--- ScooterSharingFragment
+ScooterSharingActivity *--- ActiveRideFragment
+ScooterSharingActivity *--- MapsFragment
+ScooterSharingActivity *--- PaymentFragment
+ScooterSharingActivity *--- ScooterArrayAdapter
+ScooterArrayAdapter<-- RideHistoryFragment
+ScooterSharingVM <|- ScooterSharingActivity
+ScooterSharingVM <|-- LocationFragment
+RideHistoryFragment <|-- Rides
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
 
-class ArrayList {
+
+class ActiveRideFragment {
 Object[] elementData
 size()
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class MapsFragment {
+Object[] elementData
+size()
 }
+
+class PaymentFragment {
+Object[] elementData
+size()
+}
+
+class ReceiptFragment{
+Object[] elementData
+size()
+}
+
+class RideHistoryFragment {
+Object[] elementData
+size()
+}
+
+class ScooterSharingFragment{
+Object[] elementData
+size()
+}
+
+class ScooterArrayAdapter {
+Object[] elementData
+size()
+}
+
+class ScooterSharingActivity {
+Object[] elementData
+size()
+}
+
+class LoginActivity {
+Object[] elementData
+size()
+}
+
+class MyApplication {
+Object[] elementData
+size()
+}
+
+class Rides {
+Object[] elementData
+size()
+}
+
+class RidesListViewModel {
+Object[] elementData
+size()
+}
+
+class Scooter {
+Object[] elementData
+size()
+}
+
+class ScooterSharingVM {
+Object[] elementData
+size()
+}
+
+class ScooterService {
+Object[] elementData
+size()
+}
+
 
 @enduml

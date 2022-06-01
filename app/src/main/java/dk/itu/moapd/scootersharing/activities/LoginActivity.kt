@@ -1,16 +1,13 @@
 package dk.itu.moapd.scootersharing.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
 import dk.itu.moapd.scootersharing.R
-import dk.itu.moapd.scootersharing.databinding.ActivityLoginBinding
-import dk.itu.moapd.scootersharing.databinding.FragmentRideHistoryBinding
 
 
 class LoginActivity : AppCompatActivity() {
@@ -30,7 +27,8 @@ class LoginActivity : AppCompatActivity() {
         // Choose authentication providers.
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build())
+            AuthUI.IdpConfig.GoogleBuilder().build()
+        )
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
@@ -40,7 +38,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onSignInResult(
-        result: FirebaseAuthUIAuthenticationResult) {
+        result: FirebaseAuthUIAuthenticationResult
+    ) {
         if (result.resultCode == RESULT_OK) {
             toast("User logged in the app.")
             startMainActivity()
@@ -48,9 +47,12 @@ class LoginActivity : AppCompatActivity() {
             toast("Authentication failed.")
 
     }
+
     private fun startMainActivity() {
-        val intent = Intent(this,
-            ScooterSharingActivity::class.java)
+        val intent = Intent(
+            this,
+            ScooterSharingActivity::class.java
+        )
         startActivity(intent)
         finish()
     }

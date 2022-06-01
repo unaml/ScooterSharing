@@ -10,10 +10,18 @@ import android.os.Build.VERSION_CODES.O
 import android.os.IBinder
 import androidx.core.app.NotificationCompat.Builder
 import androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.getInstance
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import dk.itu.moapd.scootersharing.DATABASE_URL
 import dk.itu.moapd.scootersharing.R.drawable.ic_baseline_electric_scooter_24
+import dk.itu.moapd.scootersharing.models.Rides
+import java.lang.Double.max
 import java.util.*
 
 class ScooterService : Service() {
+    private lateinit var scooter: String
     private lateinit var start: Date
     private var started = false
 
@@ -21,6 +29,7 @@ class ScooterService : Service() {
         super.onStartCommand(intent, flags, startId)
         intent?.extras?.run {
             if (getString("command") == "start" && !started) {
+                scooter = this.getString("scooter")!!
                 start = Date()
                 started = true
 
@@ -52,6 +61,20 @@ class ScooterService : Service() {
                 sendBroadcast(Intent("finished").apply {
                     putExtra("elapsed", now.time - start.time)
                 })
+
+                val db = Firebase.database(DATABASE_URL).reference
+                val id = db.ref.push().key!!
+                db.child("rides")
+                    .child(getInstance().currentUser?.uid ?: "None")
+                    .child(id)
+                    .setValue(
+                        Rides(
+                            scooter = scooter,
+                            startTime = start.time,
+                            endTime = now.time,
+                            price = max(Date(now.time - start.time).minutes * 0.4, 10.0)
+                        )
+                    )
 
                 if (SDK_INT >= O) {
                     stopForeground(true)
